@@ -1,4 +1,4 @@
-package model;
+package models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Player {
     private int playerJerseyNumber;
-    private boolean hasYellowCard;
+    private boolean yellowCard;
     private int numSoftFouls;
-    private boolean isAgressive;
-    private boolean hasIncreasedDisciplinaryRisk;
+    private boolean aggressive;
+    private boolean increasedDisciplinaryRisk;
     private int disciplinaryAssessmentIntensity;
 }

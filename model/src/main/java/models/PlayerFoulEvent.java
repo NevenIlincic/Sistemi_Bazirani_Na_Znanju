@@ -1,4 +1,4 @@
-package model;
+package models;
 
 import java.util.Date;
 
@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class PlayerFoulEvent {
     private int playerJerseyNumber;
     private Date timestamp;
-    private boolean isContact;
-    private boolean isConsecutive;
+    private boolean contact;
+    private boolean consecutive;
 }

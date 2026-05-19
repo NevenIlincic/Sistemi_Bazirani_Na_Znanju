@@ -1,4 +1,4 @@
-package model;
+package models;
 
 import enums.ContactPoint;
 import enums.FoulType;
@@ -12,15 +12,16 @@ import lombok.Builder.Default;
 @Data
 @Builder
 public class Incident {
-    private boolean isContact;
-    private boolean isPlayerDown;
-    private boolean isBallContactFirst;
-    private boolean isAttackerHandContact;
-    private boolean doesHandEnlargesBody;
-    private boolean isOpenFoot;
-    private boolean isContactFromBehind;
-    private boolean isBallItention;
-    private boolean isDangerousPlay;
+    private int incidentId;
+    private boolean contact;
+    private boolean playerDown;
+    private boolean ballContactFirst;
+    private boolean attackerHandContact;
+    private boolean handEnlargesBody;
+    private boolean openFoot;
+    private boolean contactFromBehind;
+    private boolean ballIntention;
+    private boolean dangerousPlay;
     @Default
     private HandPosition handPosition = HandPosition.NATURAL;
     @Default

@@ -1,4 +1,4 @@
-package model;
+package models;
 
 import enums.Direction;
 import enums.Distance;
@@ -11,10 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GameState {
+    private int incidentId;
     private Location location;
     private Distance distanceFromGoal;
     private Direction movingDirection;
-    private boolean hasBallControll;
+    private boolean ballControl;
     private int numDefendersAhead;
-    private boolean isGoalScored;
+    private boolean goalScored;
 }
