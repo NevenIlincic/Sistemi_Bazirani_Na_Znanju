@@ -20,6 +20,7 @@ public class Incident {
     private boolean isOpenFoot;
     private boolean isContactFromBehind;
     private boolean isBallItention;
+    private boolean isDangerousPlay;
     @Default
     private HandPosition handPosition = HandPosition.NATURAL;
     @Default
