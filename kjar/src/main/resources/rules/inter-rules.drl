@@ -10,6 +10,7 @@ import rules.UnsportsmanlikeConduct
 
 //G1-1
 rule "Set tackle intensity to HIGH for the last incident"
+    agenda-group "MAIN"
     salience 95
     no-loop true
     when
@@ -21,6 +22,7 @@ rule "Set tackle intensity to HIGH for the last incident"
             this after $lastIncident
         ))
     then
+        System.out.println("Pravilo 1");
         modify($lastIncident){
             setIntensity(Intensity.HIGH)
         };
@@ -28,6 +30,7 @@ end
 
 //G1-2a
 rule "Set tackle intensity when increased disciplinary risk - LOW"
+    agenda-group "MAIN"
     salience 90
     no-loop true
     when
@@ -38,6 +41,7 @@ rule "Set tackle intensity when increased disciplinary risk - LOW"
                     this after $lastIncident
         ))
     then
+        System.out.println("Pravilo 2");
         modify($lastIncident){
             setIntensity(Intensity.MEDIUM)
         }
@@ -45,6 +49,7 @@ end
 
 //G2-b
 rule "Set tackle intensity when increased disciplinary risk - MEDIUM"
+    agenda-group "MAIN"
     salience 80
     no-loop true
     when
@@ -55,6 +60,7 @@ rule "Set tackle intensity when increased disciplinary risk - MEDIUM"
                     this after $lastIncident
         ))
     then
+        System.out.println("Pravilo 3");
         modify($lastIncident){
             setIntensity(Intensity.HIGH)
         }
@@ -62,6 +68,7 @@ end
 
 //G1-3a
 rule "Increase tackle intensity - reason: assessment - LOW"
+    agenda-group "MAIN"
     salience 80
     no-loop true
     when
@@ -72,6 +79,7 @@ rule "Increase tackle intensity - reason: assessment - LOW"
            this after $lastIncident
        ))
    then
+        System.out.println("Pravilo 4");
        modify($lastIncident){
            setIntensity(Intensity.MEDIUM)
        }
@@ -79,6 +87,7 @@ end
 
 //G1-3a
 rule "Increase tackle intensity - reason: assessment - MEDIUM"
+    agenda-group "MAIN"
    salience 90
    no-loop true
    when
@@ -89,6 +98,7 @@ rule "Increase tackle intensity - reason: assessment - MEDIUM"
            this after $lastIncident
        ))
    then
+       System.out.println("Pravilo 5");
        modify($lastIncident){
            setIntensity(Intensity.HIGH)
        }
@@ -96,7 +106,8 @@ end
 
 //G1-4
 rule "Foul type - Unsportsmanlike Conduct"
-    salience 70
+    agenda-group "MAIN"
+    salience 80
     no-loop true
     when
         $uc: UnsportsmanlikeConduct($id: playerJerseyNumber)
@@ -107,14 +118,15 @@ rule "Foul type - Unsportsmanlike Conduct"
            foulType == FoulType.NON_EXISTENT
        ))
     then
+        System.out.println("NESPORTSKO PONASANJE!");
         modify($lastIncident){
             setFoulType(FoulType.RECKLESS)
         };
-        System.out.println("NESPORTSKO PONASANJ!");
 end
 
 //G1-5
 rule "Foul type - Non-existent foul"
+    agenda-group "MAIN"
     salience 70
     no-loop true
     when
@@ -132,6 +144,7 @@ rule "Foul type - Non-existent foul"
             this after $lastIncident
         ))
     then
+        System.out.println("Pravilo 6");
         modify($lastIncident){
             setFoulType(FoulType.NON_EXISTENT)
         };
@@ -139,6 +152,7 @@ end
 
 //G1-6
 rule "Foul type - dangerous play"
+    agenda-group "MAIN"
     salience 70
     no-loop true
     when
@@ -156,6 +170,7 @@ rule "Foul type - dangerous play"
             this after $lastIncident
         ))
     then
+        System.out.println("Pravilo 7");
         modify($lastIncident){
             setFoulType(FoulType.CARELESS)
         };
@@ -163,6 +178,7 @@ end
 
 //G1-7
 rule "Check for careless foul"
+    agenda-group "MAIN"
     salience 70
     no-loop true
     when
@@ -181,6 +197,7 @@ rule "Check for careless foul"
             this after $lastIncident
         ))
     then
+        System.out.println("Pravilo 8");
         modify($lastIncident){
             setFoulType(FoulType.CARELESS)
         }
@@ -188,6 +205,7 @@ end
 
 //G1-8
 rule "Check for reckless foul"
+    agenda-group "MAIN"
     salience 70
     no-loop true
     when
@@ -205,6 +223,7 @@ rule "Check for reckless foul"
             this after $lastIncident
         ))
     then
+        System.out.println("Pravilo 9");
         modify($lastIncident){
             setFoulType(FoulType.RECKLESS)
         };
@@ -212,6 +231,7 @@ end
 
 //G1-9
 rule "Check for excesive foul"
+    agenda-group "MAIN"
     salience 75
     no-loop true
     when
@@ -229,6 +249,7 @@ rule "Check for excesive foul"
             this after $lastIncident
         ))
     then
+        System.out.println("Pravilo 10");
         modify($lastIncident){
             setFoulType(FoulType.EXCESSIVE)
         };

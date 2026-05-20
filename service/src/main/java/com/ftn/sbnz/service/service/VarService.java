@@ -25,11 +25,12 @@ public class VarService {
     private KieSession kieSession;
 
     public RecommendationDTO getIncidentRecommendation(@RequestBody VarRequestDTO varRequestDTO) {
-        PlayerFoulEvent playerFoulEvent = new PlayerFoulEvent();
-        playerFoulEvent.setPlayerJerseyNumber(varRequestDTO.getIncident().getPlayerJerseyNumber());
-        playerFoulEvent.setContact(varRequestDTO.getIncident().isContact());
-        playerFoulEvent.setTimestamp(new Date());
-
+        kieSession.addEventListener(new org.kie.api.event.rule.DefaultAgendaEventListener() {
+            @Override
+            public void afterMatchFired(org.kie.api.event.rule.AfterMatchFiredEvent event) {
+                System.out.println(">>> Okinuto pravilo: " + event.getMatch().getRule().getName());
+            }
+        });
         Incident incident = Incident.builder()
                 .incidentId(varRequestDTO.getIncident().getIncidentId())
                 .playerJerseyNumber(varRequestDTO.getIncident().getPlayerJerseyNumber())
@@ -57,12 +58,13 @@ public class VarService {
         gameState.setNumDefendersAhead(varRequestDTO.getGameState().getNumDefendersAhead());
         gameState.setGoalScored(varRequestDTO.getGameState().isGoalScored());
 
-        kieSession.insert(playerFoulEvent);
         kieSession.insert(incident);
         kieSession.insert(gameState);
 
         kieSession.getAgenda().getAgendaGroup("DOGSO").setFocus();
         kieSession.getAgenda().getAgendaGroup("MAIN").setFocus();
+        //printFactsInSession();
+
         kieSession.fireAllRules();
         Recommendation recommendation = null;
         Collection<?> objects = kieSession.getObjects(o -> o instanceof Recommendation);
@@ -73,5 +75,39 @@ public class VarService {
 
         return new RecommendationDTO(recommendation);
 
+    }
+
+    public void printFactsInSession() {
+        org.kie.api.definition.KiePackage kp = kieSession.getKieBase().getKiePackage("rules");
+
+        if (kp == null) {
+            System.out.println("Paket 'rules' nije pronađen!");
+            return;
+        }
+
+        // 1. Nađemo FactType bez lambdi
+        org.kie.api.definition.type.FactType foundType = null;
+        for (org.kie.api.definition.type.FactType ft : kp.getFactTypes()) {
+            if (ft.getSimpleName().equals("UnsportsmanlikeConduct")) {
+                foundType = ft;
+                break;
+            }
+        }
+
+        if (foundType != null) {
+            // 2. Umesto lambde, koristimo kieSession.getObjects() bez filtera
+            // i ručno proveravamo tip objekta u petlji. Ovo je 100% bezbedno.
+            int count = 0;
+            for (Object fact : kieSession.getObjects()) {
+                if (foundType.getFactClass().isInstance(fact)) {
+                    count++;
+                    int jersey = (int) foundType.get(fact, "playerJerseyNumber");
+                    System.out.println("Pronađen UnsportsmanlikeConduct za igrača broj: " + jersey);
+                }
+            }
+            System.out.println("Broj UnsportsmanlikeConduct objekata u memoriji: " + count);
+        } else {
+            System.out.println("FactType 'UnsportsmanlikeConduct' nije pronađen!");
+        }
     }
 }
