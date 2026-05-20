@@ -1,4 +1,4 @@
-package com.ftn.sbnz.service.CEP_Tests;
+package com.ftn.sbnz.service.cep_Tests;
 
 import models.Player;
 import models.PlayerFoulEvent;

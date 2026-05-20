@@ -21,6 +21,7 @@ end
 
 rule "Level 1 - Check for DOGSO situation"
     agenda-group "DOGSO"
+    salience 10
     when
         $i: Incident(foulType != FoulType.NON_EXISTENT, $incId: incidentId)
         $gs: GameState(incidentId == $incId, distanceFromGoal == Distance.CLOSE,
@@ -30,6 +31,7 @@ end
 
 rule "Level 2 - Check for DoubleJeopardy"
     agenda-group "DOGSO"
+    salience 9
     when
         $ds: DogsoSituation($incId: incidentId)
         $gs: GameState(incidentId == $incId ,location == Location.PENALTY_AREA)
@@ -40,6 +42,7 @@ end
 
 rule "Check is yellow card for DoubleJeopardy"
     agenda-group "DOGSO"
+    salience 5
     when
         $dj: DoubleJeopardy($incId: incidentId)
         $i: Incident(incidentId == $incId)
@@ -48,13 +51,12 @@ rule "Check is yellow card for DoubleJeopardy"
     then
         insert(new Recommendation("DoubleJeopardy activated!", ProposedAction.YELLOW_CARD, Category.DISCIPLINARY_ACTION));
         delete($dj);
-        delete($i);
         delete($ds);
-        delete($gs);
 end
 
 rule "Check is red card - DOGSO inside penalty area without ball intention"
     agenda-group "DOGSO"
+    salience 5
     when
         $ds: DogsoSituation($incId: incidentId)
         $gs: GameState(incidentId == $incId ,location == Location.PENALTY_AREA)
@@ -62,12 +64,11 @@ rule "Check is red card - DOGSO inside penalty area without ball intention"
     then
         insert(new Recommendation("DoubleJeopardy not activated - RED CARD", ProposedAction.RED_CARD, Category.DISCIPLINARY_ACTION));
         delete($ds);
-        delete($i);
-        delete($gs);
 end
 
 rule "Check is red card - DOGSO outside penalty area"
     agenda-group "DOGSO"
+    salience 5
     when
         $ds: DogsoSituation($incId: incidentId)
         $gs: GameState(incidentId == $incId ,location == Location.OUTSIDE_PENALTY_AREA)
@@ -75,6 +76,15 @@ rule "Check is red card - DOGSO outside penalty area"
     then
         insert(new Recommendation("DoubleJeopardy not activated - RED CARD", ProposedAction.RED_CARD, Category.DISCIPLINARY_ACTION));
         delete($ds);
+end
+
+rule "Memory cleanup"
+    agenda-group "DOGSO"
+    salience -100
+    when
+        $i: Incident($incId: incidentId)
+        $gs: GameState(incidentId == $incId)
+    then
         delete($i);
         delete($gs);
 end

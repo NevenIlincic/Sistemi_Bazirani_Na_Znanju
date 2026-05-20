@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -16,12 +17,22 @@ import org.kie.api.definition.type.Timestamp;
 
 @Role(Role.Type.EVENT)
 @Timestamp("timestamp")
-public class PlayerFoulEvent {
+public class PlayerFoulEvent implements Comparable<PlayerFoulEvent>{
+
     private int playerJerseyNumber;
     private Date timestamp;
     private boolean contact;
 
-//    private boolean consecutive;
+    @Override
+    public int compareTo(PlayerFoulEvent o) {
+        if (this.timestamp == null || o.timestamp == null) {
+            return 0;
+        }
+        return this.timestamp.compareTo(o.timestamp);
+    }
+
+
+    //    private boolean consecutive;
 
 
 //    @Override

@@ -1,7 +1,7 @@
-package service;
+package com.ftn.sbnz.service.service;
 
-import DTO.PlayerDTO;
-import DTO.PlayerFoulEventDTO;
+import com.ftn.sbnz.service.dto.PlayerDTO;
+import com.ftn.sbnz.service.dto.PlayerFoulEventDTO;
 import models.Player;
 import models.PlayerFoulEvent;
 import org.kie.api.runtime.KieContainer;
@@ -27,6 +27,7 @@ public class MatchEventService {
             this.kieSession.insert(player);
         }
         this.kieSession.fireAllRules();
+        System.out.println("Uspesno ubačeno " + playersDTO.size() + " igrača u radnu memoriju meča!");
     }
 
     public void recordSmallIncident(PlayerFoulEventDTO playerFoulEventDTO) {
@@ -37,5 +38,6 @@ public class MatchEventService {
                 );
         this.kieSession.insert(playerFoulEvent);
         this.kieSession.fireAllRules();
+
     }
 }

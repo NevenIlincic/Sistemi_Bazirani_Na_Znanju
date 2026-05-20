@@ -1,4 +1,4 @@
-package com.ftn.sbnz.service.DOGSO_Tests;
+package com.ftn.sbnz.service.dogso_Tests;
 
 import enums.*;
 import models.GameState;
@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 

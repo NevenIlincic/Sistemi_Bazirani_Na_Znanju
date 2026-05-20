@@ -9,6 +9,7 @@ end
 
 rule "CEP 1 - Check aggressive behavior"
     salience 100
+    no-loop true
     when
         $p: Player($id: playerJerseyNumber, aggressive == false)
         Number(intValue >= 5) from accumulate(
@@ -23,6 +24,7 @@ rule "CEP 1 - Check aggressive behavior"
 
  rule "CEP 2 - Check for increased disciplinary risk"
     salience 100
+    no-loop true
     when
         $p: Player($id: playerJerseyNumber, increasedDisciplinaryRisk == false)
         Number(intValue >= 3) from accumulate(
@@ -36,15 +38,20 @@ rule "CEP 1 - Check aggressive behavior"
 end
 
 rule "CEP 3 - Check for increasing disciplinary assessment intensity"
-   salience 100
-   when
-       $p: Player($id: playerJerseyNumber)
-       $f1: PlayerFoulEvent(playerJerseyNumber == $id)
-       $f2: PlayerFoulEvent(playerJerseyNumber == $id, this != $f1, this after[0s, 3m] $f1)
+    salience 100
+    no-loop true
+    when
+        $p: Player($id: playerJerseyNumber)
+        $f1: PlayerFoulEvent(playerJerseyNumber == $id)
+        $f2: PlayerFoulEvent(playerJerseyNumber == $id, this != $f1, this after[0s, 3m] $f1)
 
-   then
+        not (PlayerFoulEvent(
+                    this after $f1,
+                    this before $f2
+        ))
+    then
         modify($p){
-            setDisciplinaryAssessmentIntensity($p.disciplinaryAssessmentIntensity + 1)
+            setDisciplinaryAssessmentIntensity($p.getDisciplinaryAssessmentIntensity() + 1)
         };
 end
 

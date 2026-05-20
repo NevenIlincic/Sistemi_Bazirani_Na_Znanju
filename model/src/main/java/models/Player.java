@@ -19,4 +19,6 @@ public class Player {
     private int numSoftFouls = 0;
     @Default
     private int disciplinaryAssessmentIntensity = 0;
+
+
 }

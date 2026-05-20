@@ -1,4 +1,4 @@
-package DTO;
+package com.ftn.sbnz.service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

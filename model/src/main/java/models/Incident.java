@@ -17,6 +17,7 @@ import java.util.Date;
 @Timestamp("timestamp")
 public class Incident {
     private int incidentId;
+    private int playerJerseyNumber;
     private boolean contact;
     private boolean playerDown;
     private boolean ballContactFirst;
@@ -26,6 +27,7 @@ public class Incident {
     private boolean contactFromBehind;
     private boolean ballIntention;
     private boolean dangerousPlay;
+
     @Default
     private Date timestamp = new Date();
     @Default
@@ -38,5 +40,6 @@ public class Incident {
     private Intensity intensity = Intensity.LOW;
     @Default
     private FoulType foulType = FoulType.NON_EXISTENT;
-    private Player player;
+
+
 }
