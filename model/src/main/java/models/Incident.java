@@ -8,9 +8,13 @@ import enums.TackleControl;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Builder.Default;
+import org.kie.api.definition.type.Timestamp;
+
+import java.util.Date;
 
 @Data
 @Builder
+@Timestamp("timestamp")
 public class Incident {
     private int incidentId;
     private boolean contact;
@@ -22,6 +26,8 @@ public class Incident {
     private boolean contactFromBehind;
     private boolean ballIntention;
     private boolean dangerousPlay;
+    @Default
+    private Date timestamp = new Date();
     @Default
     private HandPosition handPosition = HandPosition.NATURAL;
     @Default

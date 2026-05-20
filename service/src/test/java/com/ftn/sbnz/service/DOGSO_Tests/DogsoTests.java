@@ -30,7 +30,7 @@ public class DogsoTests {
 
     @BeforeEach
     public void setupKieSession(){
-        kieSession = kieContainer.newKieSession();
+        kieSession = kieContainer.newKieSession("cepConfigKsessionRealtimeClock");
     }
 
     @Test

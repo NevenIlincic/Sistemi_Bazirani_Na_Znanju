@@ -1,4 +1,4 @@
-package com.ftn.sbnz.service;
+package service;
 
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -11,9 +11,7 @@ public class VarService {
     @Autowired
     private KieContainer kieContainer;
 
+    @Autowired
     private KieSession kieSession;
 
-    public void initializeSession(){
-        this.kieSession = kieContainer.newKieSession();
-    }
 }

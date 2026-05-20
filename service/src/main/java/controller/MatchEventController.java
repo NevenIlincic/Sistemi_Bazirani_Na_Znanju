@@ -1,0 +1,35 @@
+package controller;
+
+import DTO.PlayerDTO;
+import DTO.PlayerFoulEventDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import service.MatchEventService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/match-event")
+public class MatchEventController {
+
+    @Autowired
+    private MatchEventService matchEventService;
+
+    @PostMapping(value = "/small-foul", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> noteSmallFoul(@RequestBody PlayerFoulEventDTO playerFoulEventDTO) {
+        this.matchEventService.recordSmallIncident(playerFoulEventDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/players", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> insertPlayers(@RequestBody List<PlayerDTO> playersDTO) {
+        this.matchEventService.insertPlayers(playersDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+}

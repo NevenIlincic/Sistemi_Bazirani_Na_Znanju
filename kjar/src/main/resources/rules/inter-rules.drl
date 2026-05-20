@@ -1,0 +1,222 @@
+package rules
+
+import models.Player
+import models.Incident
+import enums.FoulType
+import enums.Intensity
+import enums.TackleControl
+import enums.ContactPoint
+
+//G1-1
+rule "Set tackle intensity to HIGH for the last incident"
+    salience 95
+    when
+        $p: Player($id: playerJerseyNumber, aggressive == true)
+        $lastIncident: Incident(player.playerJerseyNumber == $id, foulType == FoulType.NON_EXISTENT, intensity != Intensity.HIGH)
+
+        not (Incident(
+            player.playerJerseyNumber == $id,
+            this > $lastIncident
+        ))
+    then
+        modify($lastIncident){
+            setIntensity(Intensity.HIGH)
+        };
+end
+
+//G1-2a
+rule "Set tackle intensity when increased disciplinary risk - LOW"
+    salience 90
+    when
+        $p: Player($id: playerJerseyNumber, increasedDisciplinaryRisk == true)
+        $lastIncident: Incident(player.playerJerseyNumber == $id, foulType == FoulType.NON_EXISTENT, intensity == Intensity.LOW)
+        not (Incident(
+                    player.playerJerseyNumber == $id,
+                    this > $lastIncident
+        ))
+    then
+        modify($lastIncident){
+            setIntensity(Intensity.MEDIUM)
+        }
+end
+
+//G2-b
+rule "Set tackle intensity when increased disciplinary risk - MEDIUM"
+    salience 80
+    when
+        $p: Player($id: playerJerseyNumber, increasedDisciplinaryRisk == true)
+        $lastIncident: Incident(player.playerJerseyNumber == $id, foulType == FoulType.NON_EXISTENT, intensity == Intensity.MEDIUM)
+        not (Incident(
+                    player.playerJerseyNumber == $id,
+                    this > $lastIncident
+        ))
+    then
+        modify($lastIncident){
+            setIntensity(Intensity.HIGH)
+        }
+end
+
+//G1-3a
+rule "Increase tackle intensity - reason: assessment - LOW"
+    salience 80
+   when
+       $p: Player($id: playerJerseyNumber, disciplinaryAssessmentIntensity >= 2)
+       $lastIncident: Incident(player.playerJerseyNumber == $id, foulType == FoulType.NON_EXISTENT, intensity == Intensity.LOW)
+       not (Incident(
+           player.playerJerseyNumber == $id,
+           this > $lastIncident
+       ))
+   then
+       modify($lastIncident){
+           setIntensity(Intensity.MEDIUM)
+       }
+end
+
+//G1-3a
+rule "Increase tackle intensity - reason: assessment - MEDIUM"
+   salience 90
+   when
+       $p: Player($id: playerJerseyNumber, disciplinaryAssessmentIntensity >= 2)
+       $lastIncident: Incident(player.playerJerseyNumber == $id, foulType == FoulType.NON_EXISTENT, intensity == Intensity.MEDIUM)
+       not (Incident(
+           player.playerJerseyNumber == $id,
+           this > $lastIncident
+       ))
+   then
+       modify($lastIncident){
+           setIntensity(Intensity.HIGH)
+       }
+end
+
+//G1-4
+rule "Foul type - Unsportsmanlike Conduct"
+    salience 70
+    when
+        $uc: UnsportsmanlikeConduct($id: playerJerseyNumber)
+        $lastIncident: Incident(player.playerJerseyNumber == $id)
+       not (Incident(
+           player.playerJerseyNumber == $id,
+           this > $lastIncident,
+           foulType == FoulType.NON_EXISTENT
+       ))
+    then
+        modify($lastIncident){
+            setFoulType(FoulType.RECKLESS)
+        };
+end
+
+//G1-5
+rule "Foul type - Non-existent foul"
+    salience 70
+    when
+        $p: Player($id: playerJerseyNumber)
+        
+        $lastIncident: Incident(
+            player.playerJerseyNumber == $id, 
+            contact == false, 
+            dangerousPlay == false,
+            foulType == FoulType.NON_EXISTENT
+        )
+        
+        not (Incident(
+            player.playerJerseyNumber == $id,
+            this > $lastIncident
+        ))
+    then
+        modify($lastIncident){
+            setFoulType(FoulType.NON_EXISTENT)
+        };
+end
+
+//G1-6
+rule "Foul type - dangerous play"
+    salience 70
+    when
+        $p: Player($id: playerJerseyNumber)
+        
+        $lastIncident: Incident(
+            player.playerJerseyNumber == $id, 
+            contact == false, 
+            dangerousPlay == true,
+            foulType == FoulType.NON_EXISTENT
+        )
+        
+        not (Incident(
+            player.playerJerseyNumber == $id,
+            this > $lastIncident
+        ))
+    then
+        modify($lastIncident){
+            setFoulType(FoulType.CARELESS)
+        };
+end
+
+//G1-7
+rule "Check for careless foul"
+    salience 70
+    when
+        $p: Player($id: playerJerseyNumber)
+        
+        $lastIncident: Incident(
+            player.playerJerseyNumber == $id, 
+            contact == true, 
+            intensity == Intensity.LOW,
+            tackleControl == TackleControl.CONTROLLED,
+            foulType == FoulType.NON_EXISTENT
+        )
+        
+        not (Incident(
+            player.playerJerseyNumber == $id,
+            this > $lastIncident
+        ))
+    then
+        modify($lastIncident){
+            setFoulType(FoulType.CARELESS)
+        }
+end
+
+//G1-8
+rule "Check for reckless foul"
+    salience 70
+    when
+        $p: Player($id: playerJerseyNumber)
+
+        $lastIncident: Incident(
+            player.playerJerseyNumber == $id,
+            contact == true,
+            (intensity == Intensity.MEDIUM || contactFromBehind == true),
+            foulType == FoulType.NON_EXISTENT
+        )
+
+        not (Incident(
+            player.playerJerseyNumber == $id,
+            this > $lastIncident
+        ))
+    then
+        modify($lastIncident){
+            setFoulType(FoulType.RECKLESS)
+        };
+end
+
+//G1-9
+rule "Check for excesive foul"
+    salience 75
+    when
+        $p: Player($id: playerJerseyNumber)
+
+        $lastIncident: Incident(
+            player.playerJerseyNumber == $id,
+            contact == true,
+            (intensity == Intensity.HIGH || (openFoot == true && contactPoint == ContactPoint.ABOVE_JOINT)),
+            foulType == FoulType.NON_EXISTENT
+        )
+
+        not (Incident(
+            player.playerJerseyNumber == $id,
+            this > $lastIncident
+        ))
+    then
+        modify($lastIncident){
+            setFoulType(FoulType.EXCESSIVE)
+        };
+end
