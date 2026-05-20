@@ -62,6 +62,7 @@ public class VarService {
         kieSession.insert(gameState);
 
         kieSession.getAgenda().getAgendaGroup("DOGSO").setFocus();
+        kieSession.getAgenda().getAgendaGroup("MAIN").setFocus();
         kieSession.fireAllRules();
         Recommendation recommendation = null;
         Collection<?> objects = kieSession.getObjects(o -> o instanceof Recommendation);

@@ -110,6 +110,7 @@ rule "Foul type - Unsportsmanlike Conduct"
         modify($lastIncident){
             setFoulType(FoulType.RECKLESS)
         };
+        System.out.println("NESPORTSKO PONASANJ!");
 end
 
 //G1-5
