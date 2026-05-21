@@ -77,14 +77,3 @@ rule "Check is red card - DOGSO outside penalty area"
         insert(new Recommendation("DoubleJeopardy not activated - RED CARD", ProposedAction.RED_CARD, Category.DISCIPLINARY_ACTION));
         delete($ds);
 end
-
-rule "Memory cleanup"
-    agenda-group "DOGSO"
-    salience -100
-    when
-        $i: Incident($incId: incidentId)
-        $gs: GameState(incidentId == $incId)
-    then
-        delete($i);
-        delete($gs);
-end

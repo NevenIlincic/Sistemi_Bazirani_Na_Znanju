@@ -5,11 +5,13 @@ import lombok.Builder;
 import lombok.Builder.Default;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.kie.api.definition.type.PropertyReactive;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@PropertyReactive
 public class Player {
     private int playerJerseyNumber;
     private boolean yellowCard;

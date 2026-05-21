@@ -3,7 +3,7 @@ package enums;
 public enum ProposedAction {
     CHECK_VIDEO,
     NO_PENALTY,
-    SIMULATION,
+    DIVING,
     NO_CARD,
     YELLOW_CARD,
     RED_CARD,

@@ -1,0 +1,177 @@
+package rules
+
+import models.Player
+import models.Incident
+import enums.FoulType
+import models.Recommendation
+import enums.ProposedAction
+import enums.Category
+import models.GameState
+import enums.Location
+import enums.HandPosition
+
+rule "Recommend yellow card"
+    agenda-group "FINAL-DECISION"
+    salience 50
+    no-loop true
+    when
+        $p: Player($pjn: playerJerseyNumber ,numSoftFouls >= 3, yellowCard == false)
+        not Recommendation(playerJerseyNumber == $pjn, action == ProposedAction.YELLOW_CARD)
+    then
+        modify($p){
+            setNumSoftFouls(0),
+            setYellowCard(true)
+        }
+        insert(new Recommendation(null, $pjn, "Yellow card for player!", ProposedAction.YELLOW_CARD, Category.DISCIPLINARY_ACTION))
+end
+
+rule "Recommend red card"
+    agenda-group "FINAL-DECISION"
+    salience 100
+    when
+         $lastIncident: Incident($id: incidentId ,$pjn: playerJerseyNumber,foulType == FoulType.RECKLESS || foulType == FoulType.EXCESSIVE)
+         $p: Player(playerJerseyNumber == $pjn, yellowCard == true)
+         not Incident(
+                this after $lastIncident
+         )
+
+        not Recommendation(incidentId == $id, action == ProposedAction.RED_CARD)
+
+    then
+        insert(new Recommendation($id, $pjn, "Red card for player!", ProposedAction.RED_CARD, Category.DISCIPLINARY_ACTION))
+end
+
+rule "Recommend video check"
+    agenda-group "FINAL-DECISION"
+    salience 100
+    when
+         $lastIncident: Incident($id: incidentId, contact == true, foulType != FoulType.NON_EXISTENT)
+         $gs: GameState(incidentId == $id, location == Location.PENALTY_AREA)
+         not Incident(
+             this after $lastIncident
+         )
+    then
+        insert(new Recommendation($id, $lastIncident.playerJerseyNumber, "Video check!", ProposedAction.CHECK_VIDEO, Category.DISCIPLINARY_ACTION))
+end
+
+rule "Recommend no penalty"
+    agenda-group "FINAL-DECISION"
+    salience 100
+    when
+         $lastIncident: Incident($id: incidentId, contact == true, foulType == FoulType.NON_EXISTENT)
+         $gs: GameState(incidentId == $id, location == Location.PENALTY_AREA)
+         not Incident(
+             this after $lastIncident
+         )
+    then
+        insert(new Recommendation($id, $lastIncident.playerJerseyNumber, "No penalty!", ProposedAction.NO_PENALTY, Category.PENALTY))
+end
+
+rule "Recommend diving"
+    agenda-group "FINAL-DECISION"
+    salience 100
+    when
+         $lastIncident: Incident($id: incidentId, contact == false, playerDown == true)
+         not Incident(
+             this after $lastIncident
+         )
+    then
+        insert(new Recommendation($id, $lastIncident.playerJerseyNumber, "Diving!", ProposedAction.DIVING ,Category.DISCIPLINARY_ACTION))
+end
+
+rule "Recommend video check - ball contact first"
+    agenda-group "FINAL-DECISION"
+    salience 100
+    when
+         $lastIncident: Incident($id: incidentId, ballContactFirst == true, foulType != FoulType.NON_EXISTENT)
+         $gs: GameState(incidentId == $id, location == Location.PENALTY_AREA)
+         not Incident(
+             this after $lastIncident
+         )
+         not Recommendation(incidentId == $id, action == ProposedAction.CHECK_VIDEO)
+    then
+        insert(new Recommendation($id, $lastIncident.playerJerseyNumber, "Video check!", ProposedAction.CHECK_VIDEO, Category.PENALTY))
+end
+
+rule "Recommend red card - EXCESIVE foul"
+    agenda-group "FINAL-DECISION"
+    salience 100
+    when
+        $lastIncident: Incident($id: incidentId, foulType == FoulType.EXCESSIVE)
+         not Incident(
+             this after $lastIncident
+         )
+         not Recommendation(incidentId == $id, action == ProposedAction.RED_CARD)
+    then
+        insert(new Recommendation($id, $lastIncident.playerJerseyNumber, "Red card for player!", ProposedAction.RED_CARD, Category.DISCIPLINARY_ACTION))
+
+end
+
+rule "Recommend yellow card - RECKLESS foul"
+    agenda-group "FINAL-DECISION"
+    salience 60
+    when
+        $lastIncident: Incident($id: incidentId, $pjn: playerJerseyNumber, foulType == FoulType.RECKLESS)
+        $p: Player(playerJerseyNumber == $pjn, yellowCard == false)
+        not Incident(
+            this after $lastIncident
+        )
+
+    then
+        insert(new Recommendation($id, $pjn, "Yellow card!", ProposedAction.YELLOW_CARD, Category.DISCIPLINARY_ACTION))
+end
+
+rule "Recommend no card - CARELESS foul"
+    agenda-group "FINAL-DECISION"
+    salience 65
+    when
+        $lastIncident: Incident($id: incidentId, foulType == FoulType.CARELESS)
+        not Incident(
+            this after $lastIncident
+        )
+
+    then
+        insert(new Recommendation($id, $lastIncident.playerJerseyNumber, "No card!", ProposedAction.NO_CARD, Category.DISCIPLINARY_ACTION))
+end
+
+rule "Disallow goal - hand play"
+    agenda-group "FINAL-DECISION"
+    salience 100
+    when
+        $lastIncident: Incident($id: incidentId, attackerHandContact == true)
+        $gs: GameState(incidentId == $id, goalScored == true)
+        not Incident(
+            this after $lastIncident
+        )
+    then
+        insert(new Recommendation($id, $lastIncident.playerJerseyNumber, "Disallowed goal!", ProposedAction.DISALLOWED_GOAL, Category.HAND_PLAY))
+end
+
+rule "Recommend video check - unatural hand position"
+    agenda-group "FINAL-DECISION"
+    salience 100
+    when
+        $lastIncident: Incident($id: incidentId, ballContactFirst == true, handPosition == HandPosition.NOT_NATURAL )
+        $gs: GameState(incidentId == $id, location == Location.PENALTY_AREA)
+        not Incident(
+            this after $lastIncident
+        )
+    then
+        insert(new Recommendation($id, $lastIncident.playerJerseyNumber, "Video check!", ProposedAction.CHECK_VIDEO, Category.HAND_PLAY))
+end
+
+rule "Recommend video check - hand enlarges body"
+    agenda-group "FINAL-DECISION"
+    salience 100
+    when
+        $lastIncident: Incident($id: incidentId, ballContactFirst == true, handEnlargesBody == true)
+        $gs: GameState(incidentId == $id, location == Location.PENALTY_AREA)
+        not Incident(
+            this after $lastIncident
+        )
+    then
+        insert(new Recommendation($id, $lastIncident.playerJerseyNumber, "Video check!", ProposedAction.CHECK_VIDEO, Category.HAND_PLAY))
+end
+
+
+

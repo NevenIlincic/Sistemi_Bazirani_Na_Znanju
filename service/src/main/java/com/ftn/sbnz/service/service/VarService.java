@@ -4,7 +4,6 @@ import com.ftn.sbnz.service.dto.RecommendationDTO;
 import com.ftn.sbnz.service.dto.VarRequestDTO;
 import models.GameState;
 import models.Incident;
-import models.PlayerFoulEvent;
 import models.Recommendation;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -12,8 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
+import java.util.List;
 
 @Service
 public class VarService {
@@ -24,7 +24,7 @@ public class VarService {
     @Autowired
     private KieSession kieSession;
 
-    public RecommendationDTO getIncidentRecommendation(@RequestBody VarRequestDTO varRequestDTO) {
+    public List<RecommendationDTO> getIncidentRecommendation(@RequestBody VarRequestDTO varRequestDTO) {
         kieSession.addEventListener(new org.kie.api.event.rule.DefaultAgendaEventListener() {
             @Override
             public void afterMatchFired(org.kie.api.event.rule.AfterMatchFiredEvent event) {
@@ -61,19 +61,23 @@ public class VarService {
         kieSession.insert(incident);
         kieSession.insert(gameState);
 
-        kieSession.getAgenda().getAgendaGroup("DOGSO").setFocus();
         kieSession.getAgenda().getAgendaGroup("MAIN").setFocus();
-        //printFactsInSession();
-
         kieSession.fireAllRules();
-        Recommendation recommendation = null;
-        Collection<?> objects = kieSession.getObjects(o -> o instanceof Recommendation);
-        if (!objects.isEmpty()) {
-            recommendation = (Recommendation) objects.iterator().next();
+        kieSession.getAgenda().getAgendaGroup("DOGSO").setFocus();
+        kieSession.fireAllRules();
+        kieSession.getAgenda().getAgendaGroup("FINAL-DECISION").setFocus();
+        kieSession.fireAllRules();
+
+        //printFactsInSession();
+        Collection<Recommendation> objects = (Collection<Recommendation>) kieSession.getObjects(o -> o instanceof Recommendation);
+        List<Recommendation> allRecommendations = new ArrayList<>(objects);
+        List<RecommendationDTO> allRecommendationDTOs = new ArrayList<>(allRecommendations.size());
+        for (Recommendation recommendation: allRecommendations){
+            allRecommendationDTOs.add(new RecommendationDTO(recommendation));
             kieSession.delete(kieSession.getFactHandle(recommendation));
         }
 
-        return new RecommendationDTO(recommendation);
+        return allRecommendationDTOs;
 
     }
 

@@ -1,0 +1,15 @@
+package rules
+
+import models.Incident
+import models.GameState
+
+rule "Memory cleanup"
+    agenda-group "DOGSO"
+    salience -100
+    when
+        $i: Incident($incId: incidentId)
+        $gs: GameState(incidentId == $incId)
+    then
+        delete($i);
+        delete($gs);
+end

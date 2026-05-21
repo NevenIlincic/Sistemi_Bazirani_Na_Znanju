@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import com.ftn.sbnz.service.service.VarService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/var")
 public class VarController {
@@ -16,10 +18,10 @@ public class VarController {
     @Autowired
     private VarService varService;
 
-    @PostMapping(value = "/get-incident", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RecommendationDTO> getIncidentRecommendation(@RequestBody VarRequestDTO varRequestDTO) {
-        RecommendationDTO recommendationDTO = this.varService.getIncidentRecommendation(varRequestDTO);
-        return new ResponseEntity<>(recommendationDTO, HttpStatus.OK);
+    @PostMapping(value = "/recommendations", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RecommendationDTO>> getIncidentRecommendation(@RequestBody VarRequestDTO varRequestDTO) {
+        List<RecommendationDTO> recommendationsDTO = this.varService.getIncidentRecommendation(varRequestDTO);
+        return new ResponseEntity<>(recommendationsDTO, HttpStatus.OK);
     }
 
 }

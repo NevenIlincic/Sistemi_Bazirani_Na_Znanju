@@ -254,3 +254,20 @@ rule "Check for excesive foul"
             setFoulType(FoulType.EXCESSIVE)
         };
 end
+
+//G2-14
+rule "Increment player soft fouls"
+    agenda-group "MAIN"
+    salience 60
+    when
+        $p: Player($id: playerJerseyNumber)
+        $lastIncident: Incident(playerJerseyNumber == $id, foulType == FoulType.CARELESS)
+        not (Incident(
+                    playerJerseyNumber == $id,
+                    this after $lastIncident
+        ))
+    then
+        modify($p){
+            setNumSoftFouls($p.getNumSoftFouls() + 1)
+        };
+end
