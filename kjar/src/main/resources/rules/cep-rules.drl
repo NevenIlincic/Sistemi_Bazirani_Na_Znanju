@@ -8,6 +8,7 @@ declare UnsportsmanlikeConduct
 end
 
 rule "CEP 1 - Check aggressive behavior"
+    agenda-group "CEP"
     salience 100
     no-loop true
     when
@@ -23,6 +24,7 @@ rule "CEP 1 - Check aggressive behavior"
  end
 
  rule "CEP 2 - Check for increased disciplinary risk"
+    agenda-group "CEP"
     salience 100
     no-loop true
     when
@@ -38,6 +40,7 @@ rule "CEP 1 - Check aggressive behavior"
 end
 
 rule "CEP 3 - Check for increasing disciplinary assessment intensity"
+    agenda-group "CEP"
     salience 100
     no-loop true
     when
@@ -56,6 +59,7 @@ rule "CEP 3 - Check for increasing disciplinary assessment intensity"
 end
 
 rule "CEP 4a - Check for unsportsmanlike conduct"
+    agenda-group "CEP"
     salience 100
     when
         $p: PlayerFoulEvent($id: playerJerseyNumber)
@@ -69,6 +73,7 @@ rule "CEP 4a - Check for unsportsmanlike conduct"
 end
 
 rule "CEP 4b - Remove unsportsmanlike conduct when player cooled down"
+    agenda-group "CEP"
     salience 100
     when
         $uc: UnsportsmanlikeConduct($id: playerJerseyNumber)

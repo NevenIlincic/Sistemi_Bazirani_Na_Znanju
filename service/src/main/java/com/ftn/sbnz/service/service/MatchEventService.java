@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class MatchEventService {
@@ -31,13 +33,24 @@ public class MatchEventService {
     }
 
     public void recordSmallIncident(PlayerFoulEventDTO playerFoulEventDTO) {
+        Set<String> firedRules = new HashSet<>();
+        kieSession.addEventListener(new org.kie.api.event.rule.DefaultAgendaEventListener() {
+            @Override
+            public void afterMatchFired(org.kie.api.event.rule.AfterMatchFiredEvent event) {
+                firedRules.add(event.getMatch().getRule().getName());
+            }
+        });
         PlayerFoulEvent playerFoulEvent = new PlayerFoulEvent(
                 playerFoulEventDTO.getPlayerJerseyNumber(),
                 new Date(),
                 playerFoulEventDTO.isContact()
                 );
         this.kieSession.insert(playerFoulEvent);
+        kieSession.getAgenda().getAgendaGroup("CEP").setFocus();
         this.kieSession.fireAllRules();
+        for (String rule: firedRules){
+            System.out.println("Aktivirano CEP pravilo: " + rule);
+        }
 
     }
 }

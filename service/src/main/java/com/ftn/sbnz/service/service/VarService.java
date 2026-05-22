@@ -1,5 +1,6 @@
 package com.ftn.sbnz.service.service;
 
+import com.ftn.sbnz.service.dto.IncidentDTO;
 import com.ftn.sbnz.service.dto.RecommendationDTO;
 import com.ftn.sbnz.service.dto.VarRequestDTO;
 import models.GameState;
@@ -11,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class VarService {
@@ -25,30 +24,16 @@ public class VarService {
     private KieSession kieSession;
 
     public List<RecommendationDTO> getIncidentRecommendation(@RequestBody VarRequestDTO varRequestDTO) {
+        Set<String> firedRules = new HashSet<>();
         kieSession.addEventListener(new org.kie.api.event.rule.DefaultAgendaEventListener() {
             @Override
             public void afterMatchFired(org.kie.api.event.rule.AfterMatchFiredEvent event) {
-                System.out.println(">>> Okinuto pravilo: " + event.getMatch().getRule().getName());
+                firedRules.add(event.getMatch().getRule().getName());
             }
         });
-        Incident incident = Incident.builder()
-                .incidentId(varRequestDTO.getIncident().getIncidentId())
-                .playerJerseyNumber(varRequestDTO.getIncident().getPlayerJerseyNumber())
-                .contact(varRequestDTO.getIncident().isContact())
-                .playerDown(varRequestDTO.getIncident().isPlayerDown())
-                .ballContactFirst(varRequestDTO.getIncident().isBallContactFirst())
-                .attackerHandContact(varRequestDTO.getIncident().isAttackerHandContact())
-                .handEnlargesBody(varRequestDTO.getIncident().isHandEnlargesBody())
-                .openFoot(varRequestDTO.getIncident().isOpenFoot())
-                .contactFromBehind(varRequestDTO.getIncident().isContactFromBehind())
-                .ballIntention(varRequestDTO.getIncident().isBallIntention())
-                .dangerousPlay(varRequestDTO.getIncident().isDangerousPlay())
-                .handPosition(varRequestDTO.getIncident().getHandPosition())
-                .contactPoint(varRequestDTO.getIncident().getContactPoint())
-                .tackleControl(varRequestDTO.getIncident().getTackleControl())
-                .foulType(varRequestDTO.getIncident().getFoulType())
-                .build();
 
+
+        Incident incident = this.buildIncidentObject(varRequestDTO.getIncident());
         GameState gameState = new GameState();
         gameState.setIncidentId(varRequestDTO.getIncident().getIncidentId());
         gameState.setLocation(varRequestDTO.getGameState().getLocation());
@@ -61,57 +46,49 @@ public class VarService {
         kieSession.insert(incident);
         kieSession.insert(gameState);
 
-        kieSession.getAgenda().getAgendaGroup("MAIN").setFocus();
-        kieSession.fireAllRules();
-        kieSession.getAgenda().getAgendaGroup("DOGSO").setFocus();
-        kieSession.fireAllRules();
+        // Da bi se CLEANUP izvršio zadnji, dodajte ga prvog na stek
+        kieSession.getAgenda().getAgendaGroup("CLEANUP").setFocus();
         kieSession.getAgenda().getAgendaGroup("FINAL-DECISION").setFocus();
+        kieSession.getAgenda().getAgendaGroup("DOGSO").setFocus();
+        kieSession.getAgenda().getAgendaGroup("MAIN").setFocus();
+
         kieSession.fireAllRules();
 
+        for (String rule: firedRules){
+            System.out.println("Aktivirano pravilo: " + rule);
+        }
         //printFactsInSession();
-        Collection<Recommendation> objects = (Collection<Recommendation>) kieSession.getObjects(o -> o instanceof Recommendation);
-        List<Recommendation> allRecommendations = new ArrayList<>(objects);
-        List<RecommendationDTO> allRecommendationDTOs = new ArrayList<>(allRecommendations.size());
-        for (Recommendation recommendation: allRecommendations){
-            allRecommendationDTOs.add(new RecommendationDTO(recommendation));
+        Collection<?> objects = kieSession.getObjects(o -> o instanceof Recommendation);
+        List<RecommendationDTO> allRecommendationsDTOs = new ArrayList<>();
+        for (Object object: objects){
+            Recommendation recommendation = (Recommendation) object;
+            allRecommendationsDTOs.add(new RecommendationDTO(recommendation));
             kieSession.delete(kieSession.getFactHandle(recommendation));
         }
 
-        return allRecommendationDTOs;
+        return allRecommendationsDTOs;
 
     }
 
-    public void printFactsInSession() {
-        org.kie.api.definition.KiePackage kp = kieSession.getKieBase().getKiePackage("rules");
+    private Incident buildIncidentObject(IncidentDTO incidentDTO) {
+        var builder = Incident.builder();
+        builder.incidentId(incidentDTO.getIncidentId());
+        builder.playerJerseyNumber(incidentDTO.getPlayerJerseyNumber());
+        if (incidentDTO.getContact() != null) {builder.contact(incidentDTO.getContact());}
+        if (incidentDTO.getPlayerDown() != null) {builder.playerDown(incidentDTO.getPlayerDown());}
+        if (incidentDTO.getBallContactFirst() != null) {builder.ballContactFirst(incidentDTO.getBallContactFirst());}
+        if (incidentDTO.getAttackerHandContact() != null) {builder.attackerHandContact(incidentDTO.getAttackerHandContact());}
+        if (incidentDTO.getHandEnlargesBody() != null){builder.handEnlargesBody(incidentDTO.getHandEnlargesBody());}
+        if (incidentDTO.getOpenFoot() != null) {builder.openFoot(incidentDTO.getOpenFoot());}
+        if (incidentDTO.getContactFromBehind() != null) {builder.contactFromBehind(incidentDTO.getContactFromBehind());}
+        if (incidentDTO.getBallIntention() != null) {builder.ballIntention(incidentDTO.getBallIntention());}
+        if (incidentDTO.getDangerousPlay() != null) {builder.dangerousPlay(incidentDTO.getDangerousPlay());}
+        if (incidentDTO.getHandPosition() != null) {builder.handPosition(incidentDTO.getHandPosition());}
+        if (incidentDTO.getContactPoint() != null) {builder.contactPoint(incidentDTO.getContactPoint());}
+        if (incidentDTO.getTackleControl() != null) {builder.tackleControl(incidentDTO.getTackleControl());}
+        if (incidentDTO.getFoulType() != null) {builder.foulType(incidentDTO.getFoulType());}
+        if (incidentDTO.getIntensity() != null) {builder.intensity(incidentDTO.getIntensity());}
 
-        if (kp == null) {
-            System.out.println("Paket 'rules' nije pronađen!");
-            return;
-        }
-
-        // 1. Nađemo FactType bez lambdi
-        org.kie.api.definition.type.FactType foundType = null;
-        for (org.kie.api.definition.type.FactType ft : kp.getFactTypes()) {
-            if (ft.getSimpleName().equals("UnsportsmanlikeConduct")) {
-                foundType = ft;
-                break;
-            }
-        }
-
-        if (foundType != null) {
-            // 2. Umesto lambde, koristimo kieSession.getObjects() bez filtera
-            // i ručno proveravamo tip objekta u petlji. Ovo je 100% bezbedno.
-            int count = 0;
-            for (Object fact : kieSession.getObjects()) {
-                if (foundType.getFactClass().isInstance(fact)) {
-                    count++;
-                    int jersey = (int) foundType.get(fact, "playerJerseyNumber");
-                    System.out.println("Pronađen UnsportsmanlikeConduct za igrača broj: " + jersey);
-                }
-            }
-            System.out.println("Broj UnsportsmanlikeConduct objekata u memoriji: " + count);
-        } else {
-            System.out.println("FactType 'UnsportsmanlikeConduct' nije pronađen!");
-        }
+        return builder.build();
     }
 }

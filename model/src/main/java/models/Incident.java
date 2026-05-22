@@ -8,12 +8,14 @@ import enums.TackleControl;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Builder.Default;
+import org.kie.api.definition.type.Role;
 import org.kie.api.definition.type.Timestamp;
 
 import java.util.Date;
 
 @Data
 @Builder
+@Role(Role.Type.EVENT)
 @Timestamp("timestamp")
 public class Incident {
     private int incidentId;

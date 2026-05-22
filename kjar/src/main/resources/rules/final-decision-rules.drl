@@ -22,7 +22,7 @@ rule "Recommend yellow card"
             setNumSoftFouls(0),
             setYellowCard(true)
         }
-        insert(new Recommendation(null, $pjn, "Yellow card for player!", ProposedAction.YELLOW_CARD, Category.DISCIPLINARY_ACTION))
+        insert(new Recommendation(null, $pjn, "Yellow card for player!", ProposedAction.YELLOW_CARD, Category.DISCIPLINARY_ACTION));
 end
 
 rule "Recommend red card"
@@ -35,13 +35,11 @@ rule "Recommend red card"
                 this after $lastIncident
          )
 
-        not Recommendation(incidentId == $id, action == ProposedAction.RED_CARD)
-
     then
-        insert(new Recommendation($id, $pjn, "Red card for player!", ProposedAction.RED_CARD, Category.DISCIPLINARY_ACTION))
+        insert(new Recommendation($id, $pjn, "Red card for player!", ProposedAction.RED_CARD, Category.DISCIPLINARY_ACTION));
 end
 
-rule "Recommend video check"
+rule "Recommend video check - Potential penalty"
     agenda-group "FINAL-DECISION"
     salience 100
     when
@@ -51,7 +49,7 @@ rule "Recommend video check"
              this after $lastIncident
          )
     then
-        insert(new Recommendation($id, $lastIncident.playerJerseyNumber, "Video check!", ProposedAction.CHECK_VIDEO, Category.DISCIPLINARY_ACTION))
+        insert(new Recommendation($id, $lastIncident.getPlayerJerseyNumber(), "Penalty check - contact in penalty area", ProposedAction.CHECK_VIDEO, Category.DISCIPLINARY_ACTION));
 end
 
 rule "Recommend no penalty"
@@ -64,7 +62,7 @@ rule "Recommend no penalty"
              this after $lastIncident
          )
     then
-        insert(new Recommendation($id, $lastIncident.playerJerseyNumber, "No penalty!", ProposedAction.NO_PENALTY, Category.PENALTY))
+        insert(new Recommendation($id, $lastIncident.getPlayerJerseyNumber(), "No penalty!", ProposedAction.NO_PENALTY, Category.PENALTY));
 end
 
 rule "Recommend diving"
@@ -76,7 +74,7 @@ rule "Recommend diving"
              this after $lastIncident
          )
     then
-        insert(new Recommendation($id, $lastIncident.playerJerseyNumber, "Diving!", ProposedAction.DIVING ,Category.DISCIPLINARY_ACTION))
+        insert(new Recommendation($id, $lastIncident.getPlayerJerseyNumber(), "Diving!", ProposedAction.DIVING ,Category.DISCIPLINARY_ACTION));
 end
 
 rule "Recommend video check - ball contact first"
@@ -88,9 +86,8 @@ rule "Recommend video check - ball contact first"
          not Incident(
              this after $lastIncident
          )
-         not Recommendation(incidentId == $id, action == ProposedAction.CHECK_VIDEO)
     then
-        insert(new Recommendation($id, $lastIncident.playerJerseyNumber, "Video check!", ProposedAction.CHECK_VIDEO, Category.PENALTY))
+        insert(new Recommendation($id, $lastIncident.getPlayerJerseyNumber(), "Penalty check - ball contact first!", ProposedAction.CHECK_VIDEO, Category.PENALTY));
 end
 
 rule "Recommend red card - EXCESIVE foul"
@@ -101,9 +98,8 @@ rule "Recommend red card - EXCESIVE foul"
          not Incident(
              this after $lastIncident
          )
-         not Recommendation(incidentId == $id, action == ProposedAction.RED_CARD)
     then
-        insert(new Recommendation($id, $lastIncident.playerJerseyNumber, "Red card for player!", ProposedAction.RED_CARD, Category.DISCIPLINARY_ACTION))
+        insert(new Recommendation($id, $lastIncident.getPlayerJerseyNumber(), "Red card for player EXCESIVE FOUL!", ProposedAction.RED_CARD, Category.DISCIPLINARY_ACTION));
 
 end
 
@@ -118,7 +114,7 @@ rule "Recommend yellow card - RECKLESS foul"
         )
 
     then
-        insert(new Recommendation($id, $pjn, "Yellow card!", ProposedAction.YELLOW_CARD, Category.DISCIPLINARY_ACTION))
+        insert(new Recommendation($id, $pjn, "Yellow card!", ProposedAction.YELLOW_CARD, Category.DISCIPLINARY_ACTION));
 end
 
 rule "Recommend no card - CARELESS foul"
@@ -129,9 +125,10 @@ rule "Recommend no card - CARELESS foul"
         not Incident(
             this after $lastIncident
         )
+        not Recommendation(action == ProposedAction.YELLOW_CARD, action == ProposedAction.RED_CARD)
 
     then
-        insert(new Recommendation($id, $lastIncident.playerJerseyNumber, "No card!", ProposedAction.NO_CARD, Category.DISCIPLINARY_ACTION))
+        insert(new Recommendation($id, $lastIncident.getPlayerJerseyNumber(), "No card!", ProposedAction.NO_CARD, Category.DISCIPLINARY_ACTION));
 end
 
 rule "Disallow goal - hand play"
@@ -144,7 +141,7 @@ rule "Disallow goal - hand play"
             this after $lastIncident
         )
     then
-        insert(new Recommendation($id, $lastIncident.playerJerseyNumber, "Disallowed goal!", ProposedAction.DISALLOWED_GOAL, Category.HAND_PLAY))
+        insert(new Recommendation($id, $lastIncident.getPlayerJerseyNumber(), "Disallowed goal!", ProposedAction.DISALLOWED_GOAL, Category.HAND_PLAY));
 end
 
 rule "Recommend video check - unatural hand position"
@@ -157,7 +154,7 @@ rule "Recommend video check - unatural hand position"
             this after $lastIncident
         )
     then
-        insert(new Recommendation($id, $lastIncident.playerJerseyNumber, "Video check!", ProposedAction.CHECK_VIDEO, Category.HAND_PLAY))
+        insert(new Recommendation($id, $lastIncident.getPlayerJerseyNumber(), "Video check!", ProposedAction.CHECK_VIDEO, Category.HAND_PLAY));
 end
 
 rule "Recommend video check - hand enlarges body"
@@ -170,7 +167,7 @@ rule "Recommend video check - hand enlarges body"
             this after $lastIncident
         )
     then
-        insert(new Recommendation($id, $lastIncident.playerJerseyNumber, "Video check!", ProposedAction.CHECK_VIDEO, Category.HAND_PLAY))
+        insert(new Recommendation($id, $lastIncident.getPlayerJerseyNumber(), "Video check!", ProposedAction.CHECK_VIDEO, Category.HAND_PLAY));
 end
 
 

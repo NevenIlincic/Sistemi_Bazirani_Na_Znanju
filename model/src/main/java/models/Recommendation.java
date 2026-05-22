@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Recommendation {
-    private int incidentId;
+    private Integer incidentId;
     private int playerJerseyNumber;
     private String message;
     private ProposedAction action;

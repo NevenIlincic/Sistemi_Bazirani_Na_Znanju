@@ -49,7 +49,7 @@ rule "Check is yellow card for DoubleJeopardy"
         $ds: DogsoSituation(incidentId == $incId)
         $gs: GameState(incidentId == $incId)
     then
-        insert(new Recommendation("DoubleJeopardy activated!", ProposedAction.YELLOW_CARD, Category.DISCIPLINARY_ACTION));
+        insert(new Recommendation($incId, $i.getPlayerJerseyNumber(), "DoubleJeopardy activated!", ProposedAction.YELLOW_CARD, Category.DISCIPLINARY_ACTION));
         delete($dj);
         delete($ds);
 end
@@ -62,7 +62,7 @@ rule "Check is red card - DOGSO inside penalty area without ball intention"
         $gs: GameState(incidentId == $incId ,location == Location.PENALTY_AREA)
         $i: Incident(incidentId == $incId, ballIntention == false)
     then
-        insert(new Recommendation("DoubleJeopardy not activated - RED CARD", ProposedAction.RED_CARD, Category.DISCIPLINARY_ACTION));
+        insert(new Recommendation($incId, $i.getPlayerJerseyNumber(), "DOGSO Inside Penalty Area, No ball intention - RED CARD", ProposedAction.RED_CARD, Category.DISCIPLINARY_ACTION));
         delete($ds);
 end
 
@@ -74,6 +74,6 @@ rule "Check is red card - DOGSO outside penalty area"
         $gs: GameState(incidentId == $incId ,location == Location.OUTSIDE_PENALTY_AREA)
         $i: Incident(incidentId == $incId)
     then
-        insert(new Recommendation("DoubleJeopardy not activated - RED CARD", ProposedAction.RED_CARD, Category.DISCIPLINARY_ACTION));
+        insert(new Recommendation($incId, $i.getPlayerJerseyNumber(), "DOGSO Outside Penalty Area - RED CARD", ProposedAction.RED_CARD, Category.DISCIPLINARY_ACTION));
         delete($ds);
 end

@@ -2,13 +2,14 @@ package rules
 
 import models.Incident
 import models.GameState
+import models.Recommendation
 
 rule "Memory cleanup"
-    agenda-group "DOGSO"
+    agenda-group "CLEANUP"
     salience -100
     when
-        $i: Incident($incId: incidentId)
-        $gs: GameState(incidentId == $incId)
+        $i: Incident($id: incidentId)
+        $gs: GameState(incidentId == $id)
     then
         delete($i);
         delete($gs);
