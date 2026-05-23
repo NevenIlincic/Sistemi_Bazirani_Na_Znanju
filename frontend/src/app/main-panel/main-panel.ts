@@ -6,12 +6,14 @@ import { TackleControlSection } from '../sections/tackle-control-section/tackle-
 import { HandPositionSection } from '../sections/hand-position-section/hand-position-section';
 import { IncidentParametersSection } from '../sections/incident-parameters-section/incident-parameters-section';
 import { PlayersSection } from '../sections/players-section/players-section';
+import { RecommendationsSection } from '../sections/recommendations-section/recommendations-section';
+import { SelectedPlayerSection } from '../sections/selected-player-section/selected-player-section';
 
 @Component({
   selector: 'app-main-panel',
   imports: [IntensitySection, ContactPointSection, 
     FoulTypeSection, TackleControlSection, HandPositionSection, 
-    IncidentParametersSection, PlayersSection],
+    IncidentParametersSection, PlayersSection, RecommendationsSection, SelectedPlayerSection],
   templateUrl: './main-panel.html',
   styleUrl: './main-panel.css',
 })

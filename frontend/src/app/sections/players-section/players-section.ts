@@ -3,6 +3,7 @@ import { PlayerInfo } from '../../model/player-info';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PlayerInfoLoad } from '../../model/player-info-load';
+import { PlayerService } from '../../service/player-service';
 
 @Component({
   selector: 'app-players-section',
@@ -18,7 +19,7 @@ export class PlayersSection implements OnInit {
   selectedClubA: string = "FC Barcelona";
   selectedClubB: string = "FC Arsenal";
 
-  constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef){}
+  constructor(private playerService: PlayerService ,private httpClient: HttpClient, private cdr: ChangeDetectorRef){}
 
   ngOnInit(): void {
     this.getTeamA().subscribe({
@@ -33,6 +34,11 @@ export class PlayersSection implements OnInit {
             selected: false
           };
         });
+        this.cdr.detectChanges();
+      }
+    });
+    this.getTeamB().subscribe({
+      next: (info: PlayerInfoLoad[]) => {
         this.clubB = info.map((item: PlayerInfoLoad) => {
           return {
             club: item.club,
@@ -44,12 +50,20 @@ export class PlayersSection implements OnInit {
           };
         });
         this.cdr.detectChanges();
-      }, error(err) {
-      },
+      }
     });
   }
 
   getTeamA(): Observable<PlayerInfoLoad[]>{
-    return this.httpClient.get<PlayerInfoLoad[]>("barcelona.json")
+    return this.httpClient.get<PlayerInfoLoad[]>("barcelona.json");
+  }
+
+  getTeamB(): Observable<PlayerInfoLoad[]>{
+    return this.httpClient.get<PlayerInfoLoad[]>("arsenal.json");
+  }
+
+  selectPlayer(player: PlayerInfo){
+    console.log(player);
+    this.playerService.setSelectedPlayer(player);
   }
 }
