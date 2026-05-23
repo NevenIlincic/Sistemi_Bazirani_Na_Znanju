@@ -5,19 +5,19 @@
     <div class="section-options">
         <div class="section-option foot-option low">
             <label>FOOT</label>
-            <input type="radio" name="contact-point-group">
+            <input value="FOOT" type="radio" name="contact-point-group" [(ngModel)] = "contactPoint" (change)="onOptionChange()">
         </div>
         <div class="section-option lower-leg-option medium">
-            <label>LOWER_LEG</label>
-            <input type="radio" name="contact-point-group">
+            <label>LOWER LEG</label>
+            <input value="LOWER_LEG" type="radio" name="contact-point-group" [(ngModel)] = "contactPoint" (change)="onOptionChange()">
         </div>
         <div class="section-option joint-option high">
             <label>JOINT</label>
-            <input type="radio" name="contact-point-group">
+            <input value="JOINT" type="radio" name="contact-point-group" [(ngModel)] = "contactPoint" (change)="onOptionChange()">
         </div>
         <div class="section-option above-joint-option high">
             <label>ABOVE JOINT</label>
-            <input type="radio" name="contact-point-group">
+            <input value="ABOVE JOINT" type="radio" name="contact-point-group" [(ngModel)] = "contactPoint" (change)="onOptionChange()">
         </div>
     </div>
 </div>

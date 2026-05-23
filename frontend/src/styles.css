@@ -19,7 +19,7 @@ label {
   display: flex;
   flex-direction: column;
   /* width: 200px;
-    height: 150px; */
+  height: 150px; */
   border-radius: 5px;
   border: 4px solid transparent;
   background:
@@ -65,16 +65,18 @@ label {
   background-color: rgb(15, 130, 15);
   border-bottom: 2px solid black;
 }
-.medium{
+
+.medium {
   background-color: rgb(158, 158, 0);
   border-bottom: 2px solid black;
 }
-.high{
+
+.high {
   background-color: rgb(207, 3, 3);
   border-bottom: 2px solid black;
 }
-.neutral{
+
+.neutral {
   background-color: #0567f0;
   border-top: 3px solid rgb(0, 19, 128);
 }
-

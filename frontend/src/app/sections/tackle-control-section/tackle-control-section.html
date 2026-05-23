@@ -5,11 +5,11 @@
     <div class="section-options">
         <div class="section-option low">
             <label>CONTROLLED</label>
-            <input type="radio" name="tackle-control-group">
+            <input value="CONTROLLED" type="radio" name="tackle-control-group" [(ngModel)]="tackleControl" (change)="onOptionChange()">
         </div>
         <div class="section-option high">
             <label>NOT CONTROLLED</label>
-            <input type="radio" name="tackle-control-group">
+            <input value="NOT_CONTROLLED" type="radio" name="tackle-control-group" [(ngModel)]="tackleControl" (change)="onOptionChange()">
         </div>
     </div>
 </div>

@@ -1,0 +1,15 @@
+<div class="section">
+    <div class="section-title">
+        <label>DISTANCE FROM GOAL</label>
+    </div>
+    <div class="section-options">
+        <div class="section-option neutral">
+            <label>CLOSE</label>
+            <input value="CLOSE" type="radio" name="distance-group" [(ngModel)]="distance" (change)="onOptionChange()">
+        </div>
+        <div class="section-option neutral">
+            <label>FAR</label>
+            <input value="FAR" type="radio" name="distance-group" [(ngModel)]="distance" (change)="onOptionChange()">
+        </div>
+    </div>
+</div>

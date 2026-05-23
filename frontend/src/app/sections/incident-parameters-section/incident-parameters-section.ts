@@ -7,5 +7,4 @@ import { Component } from '@angular/core';
   styleUrl: './incident-parameters-section.css',
 })
 export class IncidentParametersSection {
-
 }

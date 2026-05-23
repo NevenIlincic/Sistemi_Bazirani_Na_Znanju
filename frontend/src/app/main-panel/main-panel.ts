@@ -8,12 +8,19 @@ import { IncidentParametersSection } from '../sections/incident-parameters-secti
 import { PlayersSection } from '../sections/players-section/players-section';
 import { RecommendationsSection } from '../sections/recommendations-section/recommendations-section';
 import { SelectedPlayerSection } from '../sections/selected-player-section/selected-player-section';
+import { LocationSection } from '../sections/location-section/location-section';
+import { DistanceSection } from '../sections/distance-section/distance-section';
+import { DirectionSection } from '../sections/direction-section/direction-section';
+import { BallControlSection } from '../sections/ball-control-section/ball-control-section';
+import { GoalScoredSection } from '../sections/goal-scored-section/goal-scored-section';
+import { NumDefendersAheadSection } from '../sections/num-defenders-ahead-section/num-defenders-ahead-section';
 
 @Component({
   selector: 'app-main-panel',
   imports: [IntensitySection, ContactPointSection, 
     FoulTypeSection, TackleControlSection, HandPositionSection, 
-    IncidentParametersSection, PlayersSection, RecommendationsSection, SelectedPlayerSection],
+    IncidentParametersSection, PlayersSection, RecommendationsSection, SelectedPlayerSection,
+  LocationSection, DistanceSection, DirectionSection, BallControlSection, GoalScoredSection, NumDefendersAheadSection],
   templateUrl: './main-panel.html',
   styleUrl: './main-panel.css',
 })

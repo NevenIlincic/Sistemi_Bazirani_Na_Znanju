@@ -3,18 +3,18 @@ import { FormsModule } from '@angular/forms';
 import { RecommendationService } from '../../service/recommendation-service';
 
 @Component({
-  selector: 'app-hand-position-section',
+  selector: 'app-direction-section',
   imports: [FormsModule],
-  templateUrl: './hand-position-section.html',
-  styleUrl: './hand-position-section.css',
+  templateUrl: './direction-section.html',
+  styleUrl: './direction-section.css',
 })
-export class HandPositionSection {
-  handPosition: string = "NATURAL";
+export class DirectionSection {
+  movingDirection: string = "TOWARDS_GOAL";
 
   constructor(private recommendationService: RecommendationService) { }
 
   onOptionChange() {
-    this.recommendationService.handPosition.next(this.handPosition);
-    console.log(this.handPosition);
+    this.recommendationService.movingDirection.next(this.movingDirection);
+    console.log(this.movingDirection);
   }
 }

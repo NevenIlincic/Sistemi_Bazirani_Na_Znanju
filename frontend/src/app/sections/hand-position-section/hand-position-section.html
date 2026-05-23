@@ -5,11 +5,11 @@
     <div class="section-options">
         <div class="section-option low">
             <label>NATURAL</label>
-            <input type="radio" name="hand-position-group">
+            <input value="NATURAL" type="radio" name="hand-position-group" [(ngModel)]="handPosition" (change)="onOptionChange()">
         </div>
         <div class="section-option high">
             <label>NOT NATURAL</label>
-            <input type="radio" name="hand-position-group">
+            <input value="NOT_NATURAL" type="radio" name="hand-position-group" [(ngModel)]="handPosition" (change)="onOptionChange()">
         </div>
     </div>
 </div>

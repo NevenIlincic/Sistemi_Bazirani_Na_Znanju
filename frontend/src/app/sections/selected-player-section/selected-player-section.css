@@ -40,3 +40,13 @@
     font-size: 25px;
     font-weight: bold;
 }
+
+.no-selection{
+    height: 120px;
+    align-items: center;
+}
+.no-selection label{
+    font-size: 25px;
+    color: rgb(189, 12, 12);
+    font-weight: bold;
+}

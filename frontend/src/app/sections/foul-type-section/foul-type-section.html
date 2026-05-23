@@ -5,19 +5,19 @@
     <div class="section-options">
         <div class="section-option low">
             <label>NON EXISTENT</label>
-            <input type="radio" name="foul-type-group">
+            <input value="NON_EXISTENT" type="radio" name="foul-type-group" [(ngModel)]="foulType" (change)="onOptionChange()">
         </div>
         <div class="section-option low">
             <label>CARELESS</label>
-            <input type="radio" name="foul-type-group">
+            <input value="CARELESS" type="radio" name="foul-type-group" [(ngModel)]="foulType" (change)="onOptionChange()">
         </div>
         <div class="section-option medium">
             <label>RECKLESS</label>
-            <input type="radio" name="foul-type-group">
+            <input value="RECKLESS" type="radio" name="foul-type-group" [(ngModel)]="foulType" (change)="onOptionChange()">
         </div>
         <div class="section-option high">
             <label>EXCESSIVE</label>
-            <input type="radio" name="foul-type-group">
+            <input value="EXCESSIVE" type="radio" name="foul-type-group" [(ngModel)]="foulType" (change)="onOptionChange()">
         </div>
     </div>
 </div>

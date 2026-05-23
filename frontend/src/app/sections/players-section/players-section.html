@@ -19,7 +19,7 @@
             @for (playerInfo of clubB; track $index) {
             <div class="player-info" (click)="selectPlayer(playerInfo)">
                 <img [src]="playerInfo.imgUrl" referrerpolicy="no-referrer">
-                <p>{{playerInfo.firstName}} {{playerInfo.lastName}}</p>
+                <p>{{playerInfo.firstName}} {{playerInfo.lastName}} {{playerInfo.number}}</p>
             </div>
             }
         </div>

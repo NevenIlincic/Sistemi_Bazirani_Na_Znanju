@@ -5,15 +5,15 @@
     <div class="intensity-section-options">
         <div class="low-intensity-row low">
             <label>LOW</label>
-            <input class="intensity-button" type="radio" name="a">
+            <input value="LOW" class="intensity-button" type="radio" name="intensity-group" [(ngModel)]="intensity" (change)="onOptionChange()">
         </div>
         <div class="medium-intensity-row medium">
             <label>MEDIUM</label>
-            <input class="intensity-button" type="radio" name="a">
+            <input value="MEDIUM" class="intensity-button" type="radio" name="intensity-group" [(ngModel)]="intensity" (change)="onOptionChange()">
         </div>
         <div class="high-intensity-row high">
             <label>HIGH</label>
-            <input class="intensity-button" type="radio" name="a">
+            <input value="HIGH" class="intensity-button" type="radio" name="intensity-group" [(ngModel)]="intensity" (change)="onOptionChange()">
         </div>
     </div>
 </div>

@@ -10,6 +10,10 @@ export class PlayerService {
   private selectedPlayer: BehaviorSubject<PlayerInfo | null> = new BehaviorSubject<PlayerInfo | null>(null);
   watchSelectedPlayer$ = this.selectedPlayer.asObservable();
 
+  resetSelectedPlayer(){
+    this.selectedPlayer.next(null);
+  }
+
   setSelectedPlayer(player: PlayerInfo) {
     this.selectedPlayer.next(player);
   }
