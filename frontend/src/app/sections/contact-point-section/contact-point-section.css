@@ -1,0 +1,17 @@
+.section {
+    width: 200px;
+    height: 150px;
+}
+
+.foot-option {
+    background-color: rgb(15, 130, 15);
+}
+
+.lower-leg-option {
+    background-color: rgb(158, 158, 0);
+}
+
+.joint-option,
+.above-joint-option {
+    background-color: rgb(207, 3, 3);
+}

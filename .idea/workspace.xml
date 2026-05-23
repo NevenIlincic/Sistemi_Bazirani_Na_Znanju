@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fa611611-649d-485b-883d-67ac3ba6431c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Sistemi_Bazirani_Na_Znanju.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kjar/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kjar/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kjar/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kjar/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kjar/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kjar/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kjar/src/main/java/com/ftn/sbnz/kjar/KjarApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kjar/src/main/resources/META-INF/kmodule.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kjar/src/main/resources/rules/cep-rules.drl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kjar/src/main/resources/rules/clean-up-rules.drl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kjar/src/main/resources/rules/dogso-rules.drl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kjar/src/main/resources/rules/final-decision-rules.drl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kjar/src/main/resources/rules/inter-rules.drl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/ftn/sbnz/model/ModelApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/enums/Category.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/enums/ContactPoint.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/enums/Direction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/enums/Distance.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/enums/FoulType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/enums/HandPosition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/enums/Intensity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/enums/Location.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/enums/ProposedAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/enums/TackleControl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/models/GameState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/models/Incident.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/models/Player.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/models/PlayerFoulEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/models/Recommendation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/ftn/sbnz/service/ServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/ftn/sbnz/service/controller/MatchEventController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/ftn/sbnz/service/controller/VarController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/ftn/sbnz/service/dto/GameStateDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/ftn/sbnz/service/dto/IncidentDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/ftn/sbnz/service/dto/PlayerDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/ftn/sbnz/service/dto/PlayerFoulEventDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/ftn/sbnz/service/dto/RecommendationDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/ftn/sbnz/service/dto/VarRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/ftn/sbnz/service/service/MatchEventService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/ftn/sbnz/service/service/VarService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/test/java/com/ftn/sbnz/service/ServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/test/java/com/ftn/sbnz/service/cep_Tests/CEPTests1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/test/java/com/ftn/sbnz/service/dogso_Tests/DogsoTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="3DxFjT8EvCdQ79KJkhrfA1hcdkG" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JUnit.CEPTests1.shouldNotSetAggressiveToTrue.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CEPTests1.shouldSetAggressiveTrue.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DogsoTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DogsoTests.shouldActivateDoubleJeopardy.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DogsoTests.shouldRecommendRedCardOutsidePenaltyBox.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DogsoTests.shouldRecommendRedCardWithoutBallIntention.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Fakultet/8.semestar/Sistemi Bazirani Na Znanju/Sistemi_Bazirani_Na_Znanju&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.ftn.sbnz.service" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.ServiceApplication">
+    <configuration name="CEPTests1.shouldNotSetAggressiveToTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ftn.sbnz.service.cep_Tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ftn.sbnz.service.CEP_Tests" />
+      <option name="MAIN_CLASS_NAME" value="com.ftn.sbnz.service.cep_Tests.CEPTests1" />
+      <option name="METHOD_NAME" value="shouldNotSetAggressiveToTrue" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CEPTests1.shouldSetAggressiveTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ftn.sbnz.service.cep_Tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ftn.sbnz.service.CEP_Tests" />
+      <option name="MAIN_CLASS_NAME" value="com.ftn.sbnz.service.cep_Tests.CEPTests1" />
+      <option name="METHOD_NAME" value="shouldSetAggressiveTrue" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DogsoTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ftn.sbnz.service.dogso_Tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ftn.sbnz.service.DOGSO_Tests" />
+      <option name="MAIN_CLASS_NAME" value="com.ftn.sbnz.service.dogso_Tests.DogsoTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DogsoTests.shouldRecommendRedCardOutsidePenaltyBox" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ftn.sbnz.service.dogso_Tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ftn.sbnz.service.DOGSO_Tests" />
+      <option name="MAIN_CLASS_NAME" value="com.ftn.sbnz.service.dogso_Tests.DogsoTests" />
+      <option name="METHOD_NAME" value="shouldRecommendRedCardOutsidePenaltyBox" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DogsoTests.shouldRecommendRedCardWithoutBallIntention" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ftn.sbnz.service.dogso_Tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ftn.sbnz.service.DOGSO_Tests" />
+      <option name="MAIN_CLASS_NAME" value="com.ftn.sbnz.service.dogso_Tests.DogsoTests" />
+      <option name="METHOD_NAME" value="shouldRecommendRedCardWithoutBallIntention" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.ftn.sbnz.service.ServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.DogsoTests" />
+        <item itemvalue="JUnit.CEPTests1.shouldNotSetAggressiveToTrue" />
+        <item itemvalue="JUnit.CEPTests1.shouldSetAggressiveTrue" />
+        <item itemvalue="JUnit.DogsoTests.shouldRecommendRedCardOutsidePenaltyBox" />
+        <item itemvalue="JUnit.DogsoTests.shouldRecommendRedCardWithoutBallIntention" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
+        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-IU-252.25557.131" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fa611611-649d-485b-883d-67ac3ba6431c" name="Changes" comment="" />
+      <created>1779215948968</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1779215948968</updated>
+      <workItem from="1779215950164" duration="8913000" />
+      <workItem from="1779267932203" duration="5308000" />
+      <workItem from="1779273288572" duration="5482000" />
+      <workItem from="1779283039478" duration="2655000" />
+      <workItem from="1779288924646" duration="7715000" />
+      <workItem from="1779297178450" duration="17263000" />
+      <workItem from="1779371060337" duration="8540000" />
+      <workItem from="1779453273696" duration="15150000" />
+      <workItem from="1779534205031" duration="99000" />
+      <workItem from="1779534464444" duration="128000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

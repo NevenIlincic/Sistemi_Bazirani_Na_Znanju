@@ -1,0 +1,16 @@
+.main-navbar{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(purple, #d703b8);
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.main-navbar p{
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+}
