@@ -1,0 +1,41 @@
+.section-body{
+    display: flex;
+    flex-direction: row;
+    overflow-y: auto;
+    padding-top: 1px;
+}
+
+.players-info{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.player-info{
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+    align-items: center;
+    cursor: pointer;
+    background-color: #0567f0;
+    border-bottom: 2px solid ;
+}
+.player-info:hover{
+    background-color: rgb(0, 19, 128);
+}
+
+.player-info img{
+    width: 75px;
+    height: 75px;
+    border: 2px solid black;
+    border-radius: 100%;
+    background-color: white;
+}
+
+.player-info p{
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}

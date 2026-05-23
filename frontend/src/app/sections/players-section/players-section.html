@@ -1,0 +1,28 @@
+<div class="section">
+    <div class="section-option section-body">
+        <div class="players-info">
+            <div class="section-title">
+                <label>{{selectedClubA}}</label>
+            </div>
+            @for (playerInfo of clubA; track $index) {
+            <div class="player-info">
+                <img [src]="playerInfo.imgUrl" referrerpolicy="no-referrer">
+                <p>{{playerInfo.firstName}} {{playerInfo.lastName}} {{playerInfo.number}}</p>
+            </div>
+            }
+
+        </div>
+        <div class="players-info">
+            <div class="section-title">
+                <label>{{selectedClubB}}</label>
+            </div>
+            @for (playerInfo of clubB; track $index) {
+            <div class="player-info">
+                <img [src]="playerInfo.imgUrl">
+                <p>{{playerInfo.firstName}} {{playerInfo.lastName}}</p>
+            </div>
+            }
+        </div>
+    </div>
+
+</div>
