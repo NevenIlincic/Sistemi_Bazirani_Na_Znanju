@@ -3,7 +3,18 @@
         <label>RECOMMENDATIONS</label>
     </div>
     <div class="section-options">
-
+        @if(newRecommendations.length != 0){
+        @for (recommendation of newRecommendations; track $index) {
+        <div class="recommendation">
+            <label style="color: rgba(92, 255, 4, 0.911);">ACTION: {{recommendation.action}}</label>
+            <label>MESSAGE: {{recommendation.message}}</label>
+            <label>CATEGORY: {{recommendation.category}}</label>
+        </div>
+        
+        }
+        }@else {
+        <p style="color: rgba(92, 255, 4, 0.911); font-size: 20px; font-weight: bold;">NO RECOMMENDATIONS!</p>
+        }
     </div>
 
 </div>

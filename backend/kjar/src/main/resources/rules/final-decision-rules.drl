@@ -119,13 +119,13 @@ end
 
 rule "Recommend no card - CARELESS foul"
     agenda-group "FINAL-DECISION"
-    salience 65
+    salience 10
     when
         $lastIncident: Incident($id: incidentId, foulType == FoulType.CARELESS)
         not Incident(
             this after $lastIncident
         )
-        not Recommendation(action == ProposedAction.YELLOW_CARD, action == ProposedAction.RED_CARD)
+        not Recommendation(action == ProposedAction.YELLOW_CARD || action == ProposedAction.RED_CARD)
 
     then
         insert(new Recommendation($id, $lastIncident.getPlayerId(), "No card!", ProposedAction.NO_CARD, Category.DISCIPLINARY_ACTION));

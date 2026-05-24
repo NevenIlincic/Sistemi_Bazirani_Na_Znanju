@@ -78,6 +78,9 @@ export class RecommendationService {
   goalScored: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   watchGoalScored$ = this.goalScored.asObservable();
 
+  recommendations: BehaviorSubject<RecommendationDTO[]> = new BehaviorSubject<RecommendationDTO[]>([]);
+  watchRecommendations$ = this.recommendations.asObservable();
+
   constructor(private playerService: PlayerService, private httpClient: HttpClient) { }
 
   resetOptions() {
@@ -104,6 +107,8 @@ export class RecommendationService {
     this.ballControl.next(true);
     this.areDefendersAhead.next(true);
     this.goalScored.next(false);
+
+    this.recommendations.next([]);
   }
 
   sendIncidentInformation() {
@@ -148,8 +153,9 @@ export class RecommendationService {
       this.sendVarRequest(varRequestDTO).subscribe({
         next: (recommendations: RecommendationDTO[]) =>{
           console.log(recommendations);
+          this.recommendations.next(recommendations);
           this.incidentId += 1;
-          this.resetOptions();
+          // this.resetOptions();
         }
       });
     }

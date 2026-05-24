@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RecommendationService } from '../../service/recommendation-service';
 
@@ -8,7 +8,7 @@ import { RecommendationService } from '../../service/recommendation-service';
   templateUrl: './ball-control-section.html',
   styleUrl: './ball-control-section.css',
 })
-export class BallControlSection {
+export class BallControlSection{
   attackerBallControl: string = "YES";
 
   constructor(private recommendationService: RecommendationService) { }

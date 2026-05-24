@@ -22,4 +22,8 @@ export class NavBar {
   insertPlayers(): void{
     this.playerService.insertPlayers().subscribe();
   }
+
+  resetOptions(): void{
+    this.recommendationService.resetOptions();
+  }
 }
