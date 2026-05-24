@@ -25,7 +25,7 @@ public class MatchEventService {
 
     public void insertPlayers(List<PlayerDTO> playersDTO) {
         for (PlayerDTO playerDTO : playersDTO) {
-            Player player = Player.builder().playerJerseyNumber(playerDTO.getPlayerJerseyNumber()).build();
+            Player player = Player.builder().playerId(playerDTO.getPlayerId()).build();
             this.kieSession.insert(player);
         }
         this.kieSession.fireAllRules();
@@ -41,7 +41,7 @@ public class MatchEventService {
             }
         });
         PlayerFoulEvent playerFoulEvent = new PlayerFoulEvent(
-                playerFoulEventDTO.getPlayerJerseyNumber(),
+                playerFoulEventDTO.getPlayerId(),
                 new Date(),
                 playerFoulEventDTO.isContact()
                 );

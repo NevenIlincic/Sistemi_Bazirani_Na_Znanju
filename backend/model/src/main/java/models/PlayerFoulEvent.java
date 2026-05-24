@@ -19,7 +19,7 @@ import org.kie.api.definition.type.Timestamp;
 @Timestamp("timestamp")
 public class PlayerFoulEvent implements Comparable<PlayerFoulEvent>{
 
-    private int playerJerseyNumber;
+    private String playerId;
     private Date timestamp;
     private boolean contact;
 

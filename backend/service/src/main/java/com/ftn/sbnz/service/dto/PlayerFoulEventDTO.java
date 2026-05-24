@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class PlayerFoulEventDTO {
 
-    private int playerJerseyNumber;
+    private String playerId;
     private boolean isContact;
 
 }

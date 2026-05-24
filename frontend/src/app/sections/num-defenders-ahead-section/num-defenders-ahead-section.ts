@@ -18,7 +18,7 @@ export class NumDefendersAheadSection {
     if (this.defendersAhead == "NO") {
       areDefendersAhead = false;
     }
-    this.recommendationService.areDefendersAhead.next(areDefendersAhead)
+    this.recommendationService.areDefendersAhead.next(areDefendersAhead);
     console.log(areDefendersAhead);
   }
 }

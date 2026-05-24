@@ -19,7 +19,7 @@ import java.util.Date;
 @Timestamp("timestamp")
 public class Incident {
     private int incidentId;
-    private int playerJerseyNumber;
+    private String playerId;
     private boolean contact;
     private boolean playerDown;
     private boolean ballContactFirst;

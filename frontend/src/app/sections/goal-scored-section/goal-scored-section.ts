@@ -9,7 +9,7 @@ import { RecommendationService } from '../../service/recommendation-service';
   styleUrl: './goal-scored-section.css',
 })
 export class GoalScoredSection {
-  goalScored: string = "YES";
+  goalScored: string = "NO";
 
   constructor(private recommendationService: RecommendationService) { }
 

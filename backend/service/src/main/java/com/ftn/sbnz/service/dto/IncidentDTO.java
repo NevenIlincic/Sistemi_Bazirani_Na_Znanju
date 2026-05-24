@@ -21,5 +21,5 @@ public class IncidentDTO {
     private TackleControl tackleControl;
     private Intensity intensity;
     private FoulType foulType;
-    private int playerJerseyNumber;
+    private String playerId;
 }

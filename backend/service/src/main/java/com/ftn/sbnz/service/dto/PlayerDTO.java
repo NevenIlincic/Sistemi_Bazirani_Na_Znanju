@@ -7,5 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class PlayerDTO {
 
-    private int playerJerseyNumber;
+    private String playerId;
 }

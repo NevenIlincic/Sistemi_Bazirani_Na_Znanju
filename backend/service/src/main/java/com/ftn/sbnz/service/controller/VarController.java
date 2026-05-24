@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/var")
+@CrossOrigin("*")
 public class VarController {
 
     @Autowired

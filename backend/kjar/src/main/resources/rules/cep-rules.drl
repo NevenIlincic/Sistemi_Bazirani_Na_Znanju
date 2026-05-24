@@ -4,7 +4,7 @@ import models.PlayerFoulEvent
 import models.Player
 
 declare UnsportsmanlikeConduct
-    playerJerseyNumber: int
+    playerId: String
 end
 
 rule "CEP 1 - Check aggressive behavior"
@@ -12,9 +12,9 @@ rule "CEP 1 - Check aggressive behavior"
     salience 100
     no-loop true
     when
-        $p: Player($id: playerJerseyNumber, aggressive == false)
+        $p: Player($id: playerId, aggressive == false)
         Number(intValue >= 5) from accumulate(
-            $e: PlayerFoulEvent(playerJerseyNumber == $id) over window:time(10m),
+            $e: PlayerFoulEvent(playerId == $id) over window:time(10m),
             count($e)
         )
     then
@@ -28,9 +28,9 @@ rule "CEP 1 - Check aggressive behavior"
     salience 100
     no-loop true
     when
-        $p: Player($id: playerJerseyNumber, increasedDisciplinaryRisk == false)
+        $p: Player($id: playerId, increasedDisciplinaryRisk == false)
         Number(intValue >= 3) from accumulate(
-            $e: PlayerFoulEvent(playerJerseyNumber == $id) over window:time(10m),
+            $e: PlayerFoulEvent(playerId == $id) over window:time(10m),
             count($e)
         )
     then
@@ -44,9 +44,9 @@ rule "CEP 3 - Check for increasing disciplinary assessment intensity"
     salience 100
     no-loop true
     when
-        $p: Player($id: playerJerseyNumber)
-        $f1: PlayerFoulEvent(playerJerseyNumber == $id)
-        $f2: PlayerFoulEvent(playerJerseyNumber == $id, this != $f1, this after[0s, 3m] $f1)
+        $p: Player($id: playerId)
+        $f1: PlayerFoulEvent(playerId == $id)
+        $f2: PlayerFoulEvent(playerId == $id, this != $f1, this after[0s, 3m] $f1)
 
         not (PlayerFoulEvent(
                     this after $f1,
@@ -62,12 +62,12 @@ rule "CEP 4a - Check for unsportsmanlike conduct"
     agenda-group "CEP"
     salience 100
     when
-        $p: PlayerFoulEvent($id: playerJerseyNumber)
+        $p: PlayerFoulEvent($id: playerId)
         Number(intValue >= 5) from accumulate(
-            $e: PlayerFoulEvent(playerJerseyNumber == $id, contact == true) over window:time(10m),
+            $e: PlayerFoulEvent(playerId == $id, contact == true) over window:time(10m),
             count($e)
         )
-        not(UnsportsmanlikeConduct(playerJerseyNumber == $id))
+        not(UnsportsmanlikeConduct(playerId == $id))
     then
         insert(new UnsportsmanlikeConduct($id));
 end
@@ -76,9 +76,9 @@ rule "CEP 4b - Remove unsportsmanlike conduct when player cooled down"
     agenda-group "CEP"
     salience 100
     when
-        $uc: UnsportsmanlikeConduct($id: playerJerseyNumber)
+        $uc: UnsportsmanlikeConduct($id: playerId)
         Number (intValue < 5) from accumulate(
-            $e: PlayerFoulEvent(playerJerseyNumber == $id, contact == true) over window:time(10m),
+            $e: PlayerFoulEvent(playerId == $id, contact == true) over window:time(10m),
             count($e)
         )
     then

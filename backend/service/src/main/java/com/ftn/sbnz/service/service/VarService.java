@@ -73,7 +73,7 @@ public class VarService {
     private Incident buildIncidentObject(IncidentDTO incidentDTO) {
         var builder = Incident.builder();
         builder.incidentId(incidentDTO.getIncidentId());
-        builder.playerJerseyNumber(incidentDTO.getPlayerJerseyNumber());
+        builder.playerId(incidentDTO.getPlayerId());
         if (incidentDTO.getContact() != null) {builder.contact(incidentDTO.getContact());}
         if (incidentDTO.getPlayerDown() != null) {builder.playerDown(incidentDTO.getPlayerDown());}
         if (incidentDTO.getBallContactFirst() != null) {builder.ballContactFirst(incidentDTO.getBallContactFirst());}

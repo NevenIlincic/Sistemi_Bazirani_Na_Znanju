@@ -13,7 +13,7 @@ import org.kie.api.definition.type.PropertyReactive;
 @Builder
 @PropertyReactive
 public class Player {
-    private int playerJerseyNumber;
+    private String playerId;
     private boolean yellowCard;
     private boolean aggressive;
     private boolean increasedDisciplinaryRisk;

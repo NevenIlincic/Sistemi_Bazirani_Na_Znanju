@@ -63,16 +63,16 @@ export class RecommendationService {
   location: BehaviorSubject<string> = new BehaviorSubject<string>("OUTSIDE_PENALTY_AREA");
   watchLocation$ = this.location.asObservable();
 
-  distance: BehaviorSubject<string> = new BehaviorSubject<string>("FAR");
+  distance: BehaviorSubject<string> = new BehaviorSubject<string>("CLOSE");
   watchDistance$ = this.distance.asObservable();
 
   movingDirection: BehaviorSubject<string> = new BehaviorSubject<string>("TOWARDS_GOAL");
   watchMovingDirection$ = this.movingDirection.asObservable();
 
-  ballControl: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  ballControl: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   watchBallControl$ = this.ballControl.asObservable();
 
-  areDefendersAhead: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  areDefendersAhead: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   watchAreDefendersAhead$ = this.areDefendersAhead.asObservable();
 
   goalScored: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -99,17 +99,17 @@ export class RecommendationService {
     this.dangerousPlay.next(false);
     //GAME STATE INFO
     this.location.next("OUTSIDE_PENALTY_AREA");
-    this.distance.next("FAR");
+    this.distance.next("CLOSE");
     this.movingDirection.next("TOWARDS_GOAL");
-    this.ballControl.next(false);
-    this.areDefendersAhead.next(false);
+    this.ballControl.next(true);
+    this.areDefendersAhead.next(true);
     this.goalScored.next(false);
   }
 
   sendIncidentInformation() {
     const selectedPlayer: PlayerInfo | null = this.playerService.getSelectedPlayer();
     let numDefendersAhead: number = 0;
-    if (this.areDefendersAhead){
+    if (this.areDefendersAhead.getValue()){
       numDefendersAhead = 1;
     }
     if (selectedPlayer != null) {
@@ -156,6 +156,6 @@ export class RecommendationService {
   }
 
   sendVarRequest(varRequest: VarRequestDTO): Observable<RecommendationDTO[]>{
-    return this.httpClient.post<RecommendationDTO[]>(`${environment.apiUrl}/api/var/recommendations`, varRequest);
+    return this.httpClient.post<RecommendationDTO[]>(`${environment.apiUrl}api/var/recommendations`, varRequest);
   }
 }

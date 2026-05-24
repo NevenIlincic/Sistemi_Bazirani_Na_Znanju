@@ -14,13 +14,13 @@ rule "Set tackle intensity to HIGH for the last incident"
     salience 95
     no-loop true
     when
-        $lastIncident: Incident($incidentId: incidentId ,$pjn: playerJerseyNumber, foulType == FoulType.NON_EXISTENT, intensity != Intensity.HIGH)
+        $lastIncident: Incident($incidentId: incidentId ,$pjn: playerId, foulType == FoulType.NON_EXISTENT, intensity != Intensity.HIGH)
 
         not (Incident(
             incidentId != $incidentId,
             this after $lastIncident
         ))
-         exists (Player(playerJerseyNumber == $pjn, aggressive == true))
+         exists (Player(playerId == $pjn, aggressive == true))
     then
         modify($lastIncident){
             setIntensity(Intensity.HIGH)
@@ -33,11 +33,11 @@ rule "Set tackle intensity when increased disciplinary risk - LOW"
     salience 80
     no-loop true
     when
-        $p: Player($id: playerJerseyNumber, increasedDisciplinaryRisk == true)
-        $lastIncident: Incident($incidentId: incidentId, playerJerseyNumber == $id, foulType == FoulType.NON_EXISTENT, intensity == Intensity.LOW)
+        $p: Player($id: playerId, increasedDisciplinaryRisk == true)
+        $lastIncident: Incident($incidentId: incidentId, playerId == $id, foulType == FoulType.NON_EXISTENT, intensity == Intensity.LOW)
         not (Incident(
             incidentId != $incidentId,
-            playerJerseyNumber == $id,
+            playerId == $id,
             this after $lastIncident
         ))
     then
@@ -52,12 +52,12 @@ rule "Set tackle intensity when increased disciplinary risk - MEDIUM"
     salience 90
     no-loop true
     when
-        $lastIncident: Incident($incidentId: incidentId, $pjn: playerJerseyNumber, foulType == FoulType.NON_EXISTENT, intensity == Intensity.MEDIUM)
+        $lastIncident: Incident($incidentId: incidentId, $pjn: playerId, foulType == FoulType.NON_EXISTENT, intensity == Intensity.MEDIUM)
         not (Incident(
             incidentId != $incidentId,
             this after $lastIncident
         ))
-        exists(Player(playerJerseyNumber == $pjn, increasedDisciplinaryRisk == true))
+        exists(Player(playerId == $pjn, increasedDisciplinaryRisk == true))
     then
         modify($lastIncident){
             setIntensity(Intensity.HIGH)
@@ -71,11 +71,11 @@ rule "Increase tackle intensity - reason: assessment - LOW"
     no-loop true
 
     when
-       $p: Player($id: playerJerseyNumber, disciplinaryAssessmentIntensity >= 2)
-       $lastIncident: Incident($incidentId: incidentId, playerJerseyNumber == $id, foulType == FoulType.NON_EXISTENT, intensity == Intensity.LOW)
+       $p: Player($id: playerId, disciplinaryAssessmentIntensity >= 2)
+       $lastIncident: Incident($incidentId: incidentId, playerId == $id, foulType == FoulType.NON_EXISTENT, intensity == Intensity.LOW)
        not (Incident(
            incidentId != $incidentId,
-           playerJerseyNumber == $id,
+           playerId == $id,
            this after $lastIncident
        ))
    then
@@ -90,11 +90,11 @@ rule "Increase tackle intensity - reason: assessment - MEDIUM"
    salience 90
    no-loop true
    when
-       $p: Player($id: playerJerseyNumber, disciplinaryAssessmentIntensity >= 2)
-       $lastIncident: Incident($incidentId: incidentId, playerJerseyNumber == $id, foulType == FoulType.NON_EXISTENT, intensity == Intensity.MEDIUM)
+       $p: Player($id: playerId, disciplinaryAssessmentIntensity >= 2)
+       $lastIncident: Incident($incidentId: incidentId, playerId == $id, foulType == FoulType.NON_EXISTENT, intensity == Intensity.MEDIUM)
        not (Incident(
            incidentId != $incidentId,
-           playerJerseyNumber == $id,
+           playerId == $id,
            this after $lastIncident
        ))
    then
@@ -109,11 +109,11 @@ rule "Foul type - Unsportsmanlike Conduct"
     salience 80
     no-loop true
     when
-        $uc: UnsportsmanlikeConduct($id: playerJerseyNumber)
-        $lastIncident: Incident($incidentId: incidentId, playerJerseyNumber == $id)
+        $uc: UnsportsmanlikeConduct($id: playerId)
+        $lastIncident: Incident($incidentId: incidentId, playerId == $id)
        not (Incident(
            incidentId != $incidentId,
-           playerJerseyNumber == $id,
+           playerId == $id,
            this after $lastIncident,
            foulType == FoulType.NON_EXISTENT
        ))
@@ -129,11 +129,11 @@ rule "Foul type - Non-existent foul"
     salience 70
     no-loop true
     when
-        $p: Player($id: playerJerseyNumber)
+        $p: Player($id: playerId)
         
         $lastIncident: Incident(
             $incidentId: incidentId,
-            playerJerseyNumber == $id,
+            playerId == $id,
             contact == false, 
             dangerousPlay == false,
             foulType == FoulType.NON_EXISTENT
@@ -141,7 +141,7 @@ rule "Foul type - Non-existent foul"
         
         not (Incident(
             incidentId != $incidentId,
-            playerJerseyNumber == $id,
+            playerId == $id,
             this after $lastIncident
         ))
     then
@@ -156,11 +156,11 @@ rule "Foul type - dangerous play"
     salience 70
     no-loop true
     when
-        $p: Player($id: playerJerseyNumber)
+        $p: Player($id: playerId)
         
         $lastIncident: Incident(
             $incidentId: incidentId,
-            playerJerseyNumber == $id,
+            playerId == $id,
             contact == false, 
             dangerousPlay == true,
             foulType == FoulType.NON_EXISTENT
@@ -168,7 +168,7 @@ rule "Foul type - dangerous play"
         
         not (Incident(
             incidentId != $incidentId,
-            playerJerseyNumber == $id,
+            playerId == $id,
             this after $lastIncident
         ))
     then
@@ -183,11 +183,11 @@ rule "Check for careless foul"
     salience 70
     no-loop true
     when
-        $p: Player($id: playerJerseyNumber)
+        $p: Player($id: playerId)
         
         $lastIncident: Incident(
             $incidentId: incidentId,
-            playerJerseyNumber == $id,
+            playerId == $id,
             contact == true, 
             intensity == Intensity.LOW,
             tackleControl == TackleControl.CONTROLLED,
@@ -196,7 +196,7 @@ rule "Check for careless foul"
         
         not (Incident(
             incidentId != $incidentId,
-            playerJerseyNumber == $id,
+            playerId == $id,
             this after $lastIncident
         ))
     then
@@ -212,11 +212,11 @@ rule "Check for reckless foul"
     salience 70
     no-loop true
     when
-        $p: Player($id: playerJerseyNumber)
+        $p: Player($id: playerId)
 
         $lastIncident: Incident(
             $incidentId: incidentId,
-            playerJerseyNumber == $id,
+            playerId == $id,
             contact == true,
             (intensity == Intensity.MEDIUM || contactFromBehind == true),
             foulType == FoulType.NON_EXISTENT
@@ -224,7 +224,7 @@ rule "Check for reckless foul"
 
         not (Incident(
             incidentId != $incidentId,
-            playerJerseyNumber == $id,
+            playerId == $id,
             this after $lastIncident
         ))
     then
@@ -239,11 +239,11 @@ rule "Check for excesive foul - High Intensity"
     salience 75
     no-loop true
     when
-        $p: Player($id: playerJerseyNumber)
+        $p: Player($id: playerId)
 
         $lastIncident: Incident(
             $incidentId: incidentId,
-            playerJerseyNumber == $id,
+            playerId == $id,
             contact == true,
             (intensity == Intensity.HIGH),
             foulType == FoulType.NON_EXISTENT
@@ -251,7 +251,7 @@ rule "Check for excesive foul - High Intensity"
 
         not (Incident(
             incidentId != $incidentId,
-            playerJerseyNumber == $id,
+            playerId == $id,
             this after $lastIncident
         ))
     then
@@ -267,7 +267,7 @@ rule "Check for excesive foul - Open foot above joint"
     when
         $lastIncident: Incident(
             $incidentId: incidentId,
-            $pjn: playerJerseyNumber,
+            $pjn: playerId,
             contact == true,
             openFoot == true,
             contactPoint == ContactPoint.ABOVE_JOINT
@@ -277,7 +277,7 @@ rule "Check for excesive foul - Open foot above joint"
             incidentId != $incidentId,
             this after $lastIncident
         ))
-        exists(Player(playerJerseyNumber == $pjn))
+        exists(Player(playerId == $pjn))
     then
         modify($lastIncident){
             setFoulType(FoulType.EXCESSIVE)
@@ -289,11 +289,11 @@ rule "Increment player soft fouls"
     agenda-group "MAIN"
     salience 60
     when
-        $p: Player($id: playerJerseyNumber)
-        $lastIncident: Incident($incidentId: incidentId, playerJerseyNumber == $id, foulType == FoulType.CARELESS)
+        $p: Player($id: playerId)
+        $lastIncident: Incident($incidentId: incidentId, playerId == $id, foulType == FoulType.CARELESS)
         not (Incident(
                     incidentId != $incidentId,
-                    playerJerseyNumber == $id,
+                    playerId == $id,
                     this after $lastIncident
         ))
     then
