@@ -118,7 +118,7 @@ export class RecommendationService {
       numDefendersAhead = 1;
     }
     if (selectedPlayer != null) {
-      const playerId: string = `${selectedPlayer.club}-${selectedPlayer.number}`;
+      const playerId: string = `${selectedPlayer.club}-${selectedPlayer.firstName}-${selectedPlayer.lastName}-${selectedPlayer.number}`;
       const incidentDTO: IncidentDTO = {
         incidentId: this.incidentId,
         playerId: playerId,

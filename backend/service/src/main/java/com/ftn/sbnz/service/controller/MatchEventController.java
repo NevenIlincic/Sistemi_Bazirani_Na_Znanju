@@ -26,6 +26,12 @@ public class MatchEventController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping(value = "/advance-time")
+    public ResponseEntity<?> advanceTime() {
+        this.matchEventService.advanceClockTime();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PostMapping(value = "/players", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> insertPlayers(@RequestBody List<PlayerDTO> playersDTO) {
         this.matchEventService.insertPlayers(playersDTO);

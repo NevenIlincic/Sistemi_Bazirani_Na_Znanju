@@ -288,6 +288,7 @@ end
 rule "Increment player soft fouls"
     agenda-group "MAIN"
     salience 60
+    no-loop true
     when
         $p: Player($id: playerId)
         $lastIncident: Incident($incidentId: incidentId, playerId == $id, foulType == FoulType.CARELESS)

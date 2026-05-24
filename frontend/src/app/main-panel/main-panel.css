@@ -36,3 +36,15 @@ app-incident-parameters-section {
     flex-grow: 1;
     max-height: 800px;
 }
+
+.incident-type{
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+.small-big-foul label{
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+}

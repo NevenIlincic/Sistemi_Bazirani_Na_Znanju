@@ -27,7 +27,8 @@ public class ServiceApplication {
 
     @Bean
     public KieSession kieSession(KieContainer kContainer) {
-        KieSession kSession = kContainer.newKieSession("cepConfigKsessionRealtimeClock");
+//        KieSession kSession = kContainer.newKieSession("cepConfigKsessionRealtimeClock");
+        KieSession kSession = kContainer.newKieSession("cepConfigKsessionPseudoClock");
         return kSession;
     }
 

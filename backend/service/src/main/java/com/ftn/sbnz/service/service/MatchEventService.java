@@ -6,6 +6,7 @@ import models.Player;
 import models.PlayerFoulEvent;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.kie.api.time.SessionPseudoClock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class MatchEventService {
@@ -52,5 +54,11 @@ public class MatchEventService {
             System.out.println("Aktivirano CEP pravilo: " + rule);
         }
 
+    }
+
+    public void advanceClockTime(){
+        SessionPseudoClock clock = this.kieSession.getSessionClock();
+        clock.advanceTime(2, TimeUnit.MINUTES);
+        System.out.println(clock.getCurrentTime());
     }
 }

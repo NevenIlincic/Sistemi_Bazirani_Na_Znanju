@@ -14,16 +14,26 @@ import { DirectionSection } from '../sections/direction-section/direction-sectio
 import { BallControlSection } from '../sections/ball-control-section/ball-control-section';
 import { GoalScoredSection } from '../sections/goal-scored-section/goal-scored-section';
 import { NumDefendersAheadSection } from '../sections/num-defenders-ahead-section/num-defenders-ahead-section';
+import { MatchEventService } from '../service/match-event-service';
+import { ContactMadeSection } from "../sections/contact-made-section/contact-made-section";
 
 @Component({
   selector: 'app-main-panel',
-  imports: [IntensitySection, ContactPointSection, 
-    FoulTypeSection, TackleControlSection, HandPositionSection, 
+  imports: [IntensitySection, ContactPointSection,
+    FoulTypeSection, TackleControlSection, HandPositionSection,
     IncidentParametersSection, PlayersSection, RecommendationsSection, SelectedPlayerSection,
-  LocationSection, DistanceSection, DirectionSection, BallControlSection, GoalScoredSection, NumDefendersAheadSection],
+    LocationSection, DistanceSection, DirectionSection, BallControlSection, GoalScoredSection, NumDefendersAheadSection, ContactMadeSection],
   templateUrl: './main-panel.html',
   styleUrl: './main-panel.css',
 })
 export class MainPanel {
 
+  isSmallFoul: boolean = false;
+
+  constructor(private matchEventService: MatchEventService){}
+
+  onOptionChange(): void{
+    this.isSmallFoul = !this.isSmallFoul;
+    this.matchEventService.isSmallFoul.next(this.isSmallFoul);
+  }
 }

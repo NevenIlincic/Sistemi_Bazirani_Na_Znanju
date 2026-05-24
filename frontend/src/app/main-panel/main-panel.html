@@ -5,6 +5,17 @@
             <label>FOUL INFORMATION</label>
         </div>
         <div class="foul-information">
+            <div class="incident-type">
+                <div class="small-big-foul">
+                    <label>SMALL FOUL</label>
+                    <input value="SMALL_FOUL" type="radio" name="small-big-foul-group" [checked]="isSmallFoul" (change)="onOptionChange()">
+                </div>
+                <div class="small-big-foul">
+                    <label> BIG FOUL</label>
+                    <input value="BIG_FOUL" , type="radio" name="small-big-foul-group" [checked]="!isSmallFoul" (change)="onOptionChange()">
+                </div>
+            </div>
+            @if (!isSmallFoul){
             <div class="section-options">
                 <app-intensity-section></app-intensity-section>
                 <app-contact-point-section> </app-contact-point-section>
@@ -19,6 +30,11 @@
                 <app-num-defenders-ahead-section></app-num-defenders-ahead-section>
             </div>
             <app-incident-parameters-section></app-incident-parameters-section>
+            }@else {
+                <div class="section-options">
+                    <app-contact-made-section></app-contact-made-section>
+                </div>
+            }
         </div>
     </div>
 

@@ -21,6 +21,7 @@ public class VarController {
 
     @PostMapping(value = "/recommendations", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RecommendationDTO>> getIncidentRecommendation(@RequestBody VarRequestDTO varRequestDTO) {
+        System.out.println(varRequestDTO);
         List<RecommendationDTO> recommendationsDTO = this.varService.getIncidentRecommendation(varRequestDTO);
         return new ResponseEntity<>(recommendationsDTO, HttpStatus.OK);
     }

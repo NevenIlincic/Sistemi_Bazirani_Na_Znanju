@@ -34,9 +34,9 @@ rule "Recommend red card"
          not Incident(
                 this after $lastIncident
          )
-
+         not Recommendation(incidentId == $id, action == ProposedAction.YELLOW_CARD)
     then
-        insert(new Recommendation($id, $pjn, "Red card for player!", ProposedAction.RED_CARD, Category.DISCIPLINARY_ACTION));
+        insert(new Recommendation($id, $pjn, "Red card for player! Second Yellow!", ProposedAction.RED_CARD, Category.DISCIPLINARY_ACTION));
 end
 
 rule "Recommend video check - Potential penalty"
@@ -114,7 +114,11 @@ rule "Recommend yellow card - RECKLESS foul"
         )
 
     then
-        insert(new Recommendation($id, $pjn, "Yellow card!", ProposedAction.YELLOW_CARD, Category.DISCIPLINARY_ACTION));
+        modify($p){
+        setYellowCard(true)
+        };
+
+        insert(new Recommendation($id, $pjn, "Yellow card! RECKLESS foul!", ProposedAction.YELLOW_CARD, Category.DISCIPLINARY_ACTION));
 end
 
 rule "Recommend no card - CARELESS foul"
@@ -128,7 +132,7 @@ rule "Recommend no card - CARELESS foul"
         not Recommendation(action == ProposedAction.YELLOW_CARD || action == ProposedAction.RED_CARD)
 
     then
-        insert(new Recommendation($id, $lastIncident.getPlayerId(), "No card!", ProposedAction.NO_CARD, Category.DISCIPLINARY_ACTION));
+        insert(new Recommendation($id, $lastIncident.getPlayerId(), "No card! Careless foul!", ProposedAction.NO_CARD, Category.DISCIPLINARY_ACTION));
 end
 
 rule "Disallow goal - hand play"
@@ -141,7 +145,7 @@ rule "Disallow goal - hand play"
             this after $lastIncident
         )
     then
-        insert(new Recommendation($id, $lastIncident.getPlayerId(), "Disallowed goal!", ProposedAction.DISALLOWED_GOAL, Category.HAND_PLAY));
+        insert(new Recommendation($id, $lastIncident.getPlayerId(), "Disallowed goal! - Hand Play", ProposedAction.DISALLOWED_GOAL, Category.HAND_PLAY));
 end
 
 rule "Recommend video check - unatural hand position"
@@ -154,7 +158,7 @@ rule "Recommend video check - unatural hand position"
             this after $lastIncident
         )
     then
-        insert(new Recommendation($id, $lastIncident.getPlayerId(), "Video check!", ProposedAction.CHECK_VIDEO, Category.HAND_PLAY));
+        insert(new Recommendation($id, $lastIncident.getPlayerId(), "Video check! - Unatural Hand Position", ProposedAction.CHECK_VIDEO, Category.HAND_PLAY));
 end
 
 rule "Recommend video check - hand enlarges body"
@@ -167,7 +171,7 @@ rule "Recommend video check - hand enlarges body"
             this after $lastIncident
         )
     then
-        insert(new Recommendation($id, $lastIncident.getPlayerId(), "Video check!", ProposedAction.CHECK_VIDEO, Category.HAND_PLAY));
+        insert(new Recommendation($id, $lastIncident.getPlayerId(), "Video check! Hand Enlarges Body", ProposedAction.CHECK_VIDEO, Category.HAND_PLAY));
 end
 
 
