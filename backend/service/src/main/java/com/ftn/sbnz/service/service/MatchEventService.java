@@ -44,7 +44,7 @@ public class MatchEventService {
         });
         PlayerFoulEvent playerFoulEvent = new PlayerFoulEvent(
                 playerFoulEventDTO.getPlayerId(),
-                new Date(),
+                this.kieSession.getSessionClock().getCurrentTime(),
                 playerFoulEventDTO.isContact()
                 );
         this.kieSession.insert(playerFoulEvent);
@@ -58,7 +58,7 @@ public class MatchEventService {
 
     public void advanceClockTime(){
         SessionPseudoClock clock = this.kieSession.getSessionClock();
-        clock.advanceTime(2, TimeUnit.MINUTES);
+        clock.advanceTime(20, TimeUnit.MINUTES);
         System.out.println(clock.getCurrentTime());
     }
 }

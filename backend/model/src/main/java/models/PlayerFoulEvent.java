@@ -20,7 +20,7 @@ import org.kie.api.definition.type.Timestamp;
 public class PlayerFoulEvent implements Comparable<PlayerFoulEvent>{
 
     private String playerId;
-    private Date timestamp;
+    private Long timestamp;
     private boolean contact;
 
     @Override
