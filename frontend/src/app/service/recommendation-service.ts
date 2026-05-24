@@ -8,6 +8,8 @@ import { VarRequestDTO } from '../dto/VarRequestDTO';
 import { RecommendationDTO } from '../dto/RecommendationDTO';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environment/environment';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Injectable({
   providedIn: 'root',
@@ -81,7 +83,7 @@ export class RecommendationService {
   recommendations: BehaviorSubject<RecommendationDTO[]> = new BehaviorSubject<RecommendationDTO[]>([]);
   watchRecommendations$ = this.recommendations.asObservable();
 
-  constructor(private playerService: PlayerService, private httpClient: HttpClient) { }
+  constructor(private playerService: PlayerService, private httpClient: HttpClient, private snackBar: MatSnackBar) { }
 
   resetOptions() {
     //INCIDENT INFO
@@ -114,7 +116,7 @@ export class RecommendationService {
   sendIncidentInformation() {
     const selectedPlayer: PlayerInfo | null = this.playerService.getSelectedPlayer();
     let numDefendersAhead: number = 0;
-    if (this.areDefendersAhead.getValue()){
+    if (this.areDefendersAhead.getValue()) {
       numDefendersAhead = 1;
     }
     if (selectedPlayer != null) {
@@ -151,17 +153,29 @@ export class RecommendationService {
       };
       console.log(varRequestDTO);
       this.sendVarRequest(varRequestDTO).subscribe({
-        next: (recommendations: RecommendationDTO[]) =>{
+        next: (recommendations: RecommendationDTO[]) => {
           console.log(recommendations);
           this.recommendations.next(recommendations);
           this.incidentId += 1;
-          // this.resetOptions();
+          this.snackBar.open("RECOMMENDATIONS DONE!", "CLOSE", {
+            duration: 3000,
+            horizontalPosition: "center",
+            verticalPosition: "bottom",
+            panelClass: ["complete-snackbar"]
+          });
+        }, error: (err: any) => {
+          this.snackBar.open("ERROR GENERATING RECOMMENDATIONS!", "CLOSE", {
+            duration: 3000,
+            horizontalPosition: "center",
+            verticalPosition: "bottom",
+            panelClass: ["error-snackbar"]
+          })
         }
       });
     }
   }
 
-  sendVarRequest(varRequest: VarRequestDTO): Observable<RecommendationDTO[]>{
+  sendVarRequest(varRequest: VarRequestDTO): Observable<RecommendationDTO[]> {
     return this.httpClient.post<RecommendationDTO[]>(`${environment.apiUrl}api/var/recommendations`, varRequest);
   }
 }

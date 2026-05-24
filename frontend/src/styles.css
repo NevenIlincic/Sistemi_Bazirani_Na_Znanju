@@ -80,3 +80,19 @@ label {
   background-color: #0567f0;
   border-top: 3px solid rgb(0, 19, 128);
 }
+
+.complete-snackbar{
+  background-color: #0567f0;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+}
+.error-snackbar{
+  background-color: red;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

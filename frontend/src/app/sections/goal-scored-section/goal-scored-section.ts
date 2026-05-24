@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RecommendationService } from '../../service/recommendation-service';
 
@@ -8,10 +8,22 @@ import { RecommendationService } from '../../service/recommendation-service';
   templateUrl: './goal-scored-section.html',
   styleUrl: './goal-scored-section.css',
 })
-export class GoalScoredSection {
+export class GoalScoredSection implements OnInit{
   goalScored: string = "NO";
 
   constructor(private recommendationService: RecommendationService) { }
+
+  ngOnInit(): void {
+    this.recommendationService.watchGoalScored$.subscribe({
+      next: (value: boolean) =>{
+        if (value){
+          this.goalScored = "YES";
+        }else{
+          this.goalScored = "NO";
+        }
+      }
+    });
+  }
 
   onOptionChange() {
     let isGoalScored: boolean = true;

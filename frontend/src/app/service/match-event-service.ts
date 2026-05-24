@@ -12,6 +12,8 @@ export class MatchEventService {
   constructor(private httpClient: HttpClient){}
 
   contactMade: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  watchContactMade$ = this.contactMade.asObservable();
+
   isSmallFoul: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   advanceClockTime(): Observable<void>{

@@ -58,7 +58,7 @@ public class MatchEventService {
 
     public void advanceClockTime(){
         SessionPseudoClock clock = this.kieSession.getSessionClock();
-        clock.advanceTime(20, TimeUnit.MINUTES);
+        clock.advanceTime(2, TimeUnit.MINUTES);
         System.out.println(clock.getCurrentTime());
     }
 }

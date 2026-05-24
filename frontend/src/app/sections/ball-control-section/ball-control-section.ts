@@ -8,10 +8,22 @@ import { RecommendationService } from '../../service/recommendation-service';
   templateUrl: './ball-control-section.html',
   styleUrl: './ball-control-section.css',
 })
-export class BallControlSection{
+export class BallControlSection implements OnInit{
   attackerBallControl: string = "YES";
 
   constructor(private recommendationService: RecommendationService) { }
+
+  ngOnInit(): void {
+    this.recommendationService.watchBallControl$.subscribe({
+      next: (value: boolean) => {
+        if (value){
+          this.attackerBallControl = "YES";
+        }else{
+          this.attackerBallControl = "NO";
+        }
+      }
+    });
+  }
 
   onOptionChange() {
     let hasControll: boolean = true;

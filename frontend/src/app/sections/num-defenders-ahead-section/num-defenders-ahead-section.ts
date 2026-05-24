@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RecommendationService } from '../../service/recommendation-service';
 import { FormsModule } from '@angular/forms';
 
@@ -8,10 +8,22 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './num-defenders-ahead-section.html',
   styleUrl: './num-defenders-ahead-section.css',
 })
-export class NumDefendersAheadSection {
+export class NumDefendersAheadSection implements OnInit{
   defendersAhead: string = "YES";
 
   constructor(private recommendationService: RecommendationService) { }
+
+  ngOnInit(): void {
+    this.recommendationService.watchAreDefendersAhead$.subscribe({
+      next: (value: boolean) => {
+        if (value){
+          this.defendersAhead = "YES";
+        }else{
+          this.defendersAhead = "NO";
+        }
+      }
+    });
+  }
 
   onOptionChange() {
     let areDefendersAhead: boolean = true;
