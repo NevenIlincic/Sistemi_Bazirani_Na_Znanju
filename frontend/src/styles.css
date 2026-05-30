@@ -81,18 +81,34 @@ label {
   border-top: 3px solid rgb(0, 19, 128);
 }
 
-.complete-snackbar{
-  background-color: #0567f0;
-  color: white;
-  font-size: 15px;
-  font-weight: bold;
+
+.complete-snackbar .mdc-snackbar__surface {
+  background-color: rgb(15, 130, 15) !important;
 }
-.error-snackbar{
-  background-color: red;
+
+
+.complete-snackbar .mat-mdc-snack-bar-label {
   color: white;
   font-size: 15px;
   font-weight: bold;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.error-snackbar .mdc-snackbar__surface {
+  background-color: red !important;
+}
+
+.error-snackbar .mat-mdc-snack-bar-label {
+  color: white !important;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

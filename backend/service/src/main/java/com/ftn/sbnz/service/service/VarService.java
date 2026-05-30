@@ -1,8 +1,6 @@
 package com.ftn.sbnz.service.service;
 
-import com.ftn.sbnz.service.dto.IncidentDTO;
-import com.ftn.sbnz.service.dto.RecommendationDTO;
-import com.ftn.sbnz.service.dto.VarRequestDTO;
+import com.ftn.sbnz.service.dto.*;
 import enums.Intensity;
 import enums.Location;
 import models.GameState;
@@ -74,31 +72,32 @@ public class VarService {
         return allRecommendationsDTOs;
 
     }
-    public void checkIsPenalty(VarRequestDTO varRequestDTO) {
+
+    public ConfirmationDTO checkIsPenalty(PenaltyCheckDTO penaltyCheckDTO) {
         String contact = "YES";
         String contactIntensity = "LOW";
-        String dangerousIntensity = varRequestDTO.getIncident().getIntensity().toString();
+        String dangerousIntensity = penaltyCheckDTO.getIntensity().toString();
         String ballControl = "YES";
         String ballContactFirst = "YES";
         String openFoot = "NO";
-        if (!varRequestDTO.getIncident().getContact()){
+        if (!penaltyCheckDTO.isContact()){
             contact = "NO";
         }
-        if (varRequestDTO.getIncident().getIntensity() != Intensity.LOW){
+        if (penaltyCheckDTO.getIntensity() != Intensity.LOW){
             contactIntensity = "MEDIUM_HIGH";
         }
-        if (!varRequestDTO.getGameState().isBallControl()){
+        if (!penaltyCheckDTO.isBallControl()){
             ballControl = "NO";
         }
-        if (varRequestDTO.getIncident().getBallContactFirst() != null && !varRequestDTO.getIncident().getBallContactFirst()){
+        if (!penaltyCheckDTO.isBallContactFirst()){
             ballContactFirst = "NO";
         }
-        if (varRequestDTO.getIncident().getOpenFoot() != null && varRequestDTO.getIncident().getOpenFoot()){
+        if (penaltyCheckDTO.isOpenFoot()){
             openFoot = "YES";
         }
         this.kieSession.insert(new PenaltyCriteria("PENALTY", null, null, null, "AND"));
         kieSession.insert(new PenaltyCriteria("FOUL_CRITERIA", null, null, "PENALTY", "OR"));
-        kieSession.insert(new PenaltyCriteria("LOCATION", varRequestDTO.getGameState().getLocation().toString(), "PENALTY_AREA", "PENALTY", null));
+        kieSession.insert(new PenaltyCriteria("LOCATION", penaltyCheckDTO.getLocation().toString(), "PENALTY_AREA", "PENALTY", null));
         kieSession.insert(new PenaltyCriteria("CONTACT_FOUL", null, null, "FOUL_CRITERIA", "AND"));
         kieSession.insert(new PenaltyCriteria("DANGEROUS_PLAY", null, null, "FOUL_CRITERIA", "AND"));
         kieSession.insert(new PenaltyCriteria("CONTACT", contact, "YES", "CONTACT_FOUL", null));
@@ -111,15 +110,19 @@ public class VarService {
         // Pozivaš upit
         QueryResults results = kieSession.getQueryResults("isSatisfied", "PENALTY");
 
+        boolean isConfirmed = false;
         if (results.size() > 0) {
-            System.out.println("Penal je potvrđen na osnovu svih uslova!");
+            System.out.println("PENALTY!");
+            isConfirmed = true;
         }else{
-            System.out.println("Nije penal!");
+            System.out.println("NOT PENALTY!");
         }
         Collection<FactHandle> handles = kieSession.getFactHandles(obj -> obj instanceof PenaltyCriteria);
         for (FactHandle handle : handles) {
             kieSession.delete(handle);
         }
+
+        return new ConfirmationDTO(isConfirmed);
     }
 
     private Incident buildIncidentObject(IncidentDTO incidentDTO) {

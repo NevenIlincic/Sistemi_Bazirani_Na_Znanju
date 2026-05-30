@@ -8,6 +8,5 @@ public enum ProposedAction {
     YELLOW_CARD,
     RED_CARD,
     DISALLOWED_GOAL,
-    CONFIRM_PENALTY,
-    WRONG_IDENTITY
+    CONFIRM_PENALTY
 }

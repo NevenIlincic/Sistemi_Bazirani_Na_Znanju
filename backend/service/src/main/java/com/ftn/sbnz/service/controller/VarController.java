@@ -1,5 +1,7 @@
 package com.ftn.sbnz.service.controller;
 
+import com.ftn.sbnz.service.dto.ConfirmationDTO;
+import com.ftn.sbnz.service.dto.PenaltyCheckDTO;
 import com.ftn.sbnz.service.dto.RecommendationDTO;
 import com.ftn.sbnz.service.dto.VarRequestDTO;
 import org.springframework.http.HttpStatus;
@@ -26,10 +28,10 @@ public class VarController {
         return new ResponseEntity<>(recommendationsDTO, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/penalty-check", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getPenaltyCheck(@RequestBody VarRequestDTO varRequestDTO) {
-        this.varService.checkIsPenalty(varRequestDTO);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PostMapping(value = "/penalty-check", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ConfirmationDTO> getPenaltyCheck(@RequestBody PenaltyCheckDTO penaltyCheckDTO) {
+        ConfirmationDTO confirmationDTO = this.varService.checkIsPenalty(penaltyCheckDTO);
+        return new ResponseEntity<>(confirmationDTO, HttpStatus.OK);
     }
 
 }

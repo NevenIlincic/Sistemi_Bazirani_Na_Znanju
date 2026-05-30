@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { RecommendationService } from '../service/recommendation-service';
 import { PlayerService } from '../service/player-service';
 import { MatchEventService } from '../service/match-event-service';
 import { PlayerInfo } from '../model/player-info';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmationDTO } from '../dto/ConfirmationDTO';
 
 @Component({
   selector: 'app-nav-bar',
@@ -45,16 +46,16 @@ export class NavBar implements OnInit, OnDestroy {
   askRecommendation() {
     if (this.matcheEventService.isSmallFoul.getValue()) {
       const selectedPlayer: PlayerInfo | null = this.playerService.getSelectedPlayer();
-      if (selectedPlayer != null){
+      if (selectedPlayer != null) {
         const playerId: string = `${selectedPlayer.club}-${selectedPlayer.firstName}-${selectedPlayer.lastName}-${selectedPlayer.number}`;
         this.matcheEventService.noteSmallFoul(playerId).subscribe({
           next: (value: void) => {
             this.snackBar.open("FOUL RECORDED!", "CLOSE", {
-            duration: 3000,
-            horizontalPosition: "center",
-            verticalPosition: "bottom",
-            panelClass: ["complete-snackbar"]
-          })
+              duration: 3000,
+              horizontalPosition: "center",
+              verticalPosition: "bottom",
+              panelClass: ["complete-snackbar"]
+            })
           }
         });
       }
@@ -76,6 +77,26 @@ export class NavBar implements OnInit, OnDestroy {
     this.matcheEventService.advanceClockTime().subscribe({
       next: (value: void) => {
         this.minutes += 2;
+      }
+    });
+  }
+
+  checkPenalty(): void {
+    this.recommendationService.checkPenalty().subscribe({
+      next: (confirmation: ConfirmationDTO) => {
+        if (confirmation.confirmed) {
+          this.snackBar.open("PENALTY!", "CLOSE", {
+            horizontalPosition: "center",
+            verticalPosition: "bottom",
+            panelClass: ["complete-snackbar"]
+          });
+        } else {
+          this.snackBar.open("NO PENALTY!", "CLOSE", {
+            horizontalPosition: "center",
+            verticalPosition: "bottom",
+            panelClass: ["error-snackbar"]
+          });
+        }
       }
     });
   }

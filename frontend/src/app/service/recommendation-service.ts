@@ -9,6 +9,8 @@ import { RecommendationDTO } from '../dto/RecommendationDTO';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environment/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmationDTO } from '../dto/ConfirmationDTO';
+import { PenaltyCheckDTO } from '../dto/PenaltyCheckDTO';
 
 
 @Injectable({
@@ -178,4 +180,18 @@ export class RecommendationService {
   sendVarRequest(varRequest: VarRequestDTO): Observable<RecommendationDTO[]> {
     return this.httpClient.post<RecommendationDTO[]>(`${environment.apiUrl}api/var/recommendations`, varRequest);
   }
+
+  checkPenalty(): Observable<ConfirmationDTO>{
+    const penaltyCheckDTO: PenaltyCheckDTO = {
+      contact: this.contact.getValue(),
+      ballControl: this.ballControl.getValue(),
+      ballControlFirst: this.isBallContactFirst.getValue(),
+      intensity: this.intensity.getValue(),
+      location: this.location.getValue(),
+      openFoot: this.openFoot.getValue()
+    };
+    return this.httpClient.post<ConfirmationDTO>(`${environment.apiUrl}api/var/penalty-check`, penaltyCheckDTO);
+  }
+
+
 }
