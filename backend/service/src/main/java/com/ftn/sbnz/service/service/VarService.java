@@ -3,11 +3,16 @@ package com.ftn.sbnz.service.service;
 import com.ftn.sbnz.service.dto.IncidentDTO;
 import com.ftn.sbnz.service.dto.RecommendationDTO;
 import com.ftn.sbnz.service.dto.VarRequestDTO;
+import enums.Intensity;
+import enums.Location;
 import models.GameState;
 import models.Incident;
+import models.PenaltyCriteria;
 import models.Recommendation;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.rule.FactHandle;
+import org.kie.api.runtime.rule.QueryResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,7 +51,7 @@ public class VarService {
         kieSession.insert(incident);
         kieSession.insert(gameState);
 
-        // Da bi se CLEANUP izvršio zadnji, dodajte ga prvog na stek
+
         kieSession.getAgenda().getAgendaGroup("CLEANUP").setFocus();
         kieSession.getAgenda().getAgendaGroup("FINAL-DECISION").setFocus();
         kieSession.getAgenda().getAgendaGroup("DOGSO").setFocus();
@@ -68,6 +73,53 @@ public class VarService {
 
         return allRecommendationsDTOs;
 
+    }
+    public void checkIsPenalty(VarRequestDTO varRequestDTO) {
+        String contact = "YES";
+        String contactIntensity = "LOW";
+        String dangerousIntensity = varRequestDTO.getIncident().getIntensity().toString();
+        String ballControl = "YES";
+        String ballContactFirst = "YES";
+        String openFoot = "NO";
+        if (!varRequestDTO.getIncident().getContact()){
+            contact = "NO";
+        }
+        if (varRequestDTO.getIncident().getIntensity() != Intensity.LOW){
+            contactIntensity = "MEDIUM_HIGH";
+        }
+        if (!varRequestDTO.getGameState().isBallControl()){
+            ballControl = "NO";
+        }
+        if (varRequestDTO.getIncident().getBallContactFirst() != null && !varRequestDTO.getIncident().getBallContactFirst()){
+            ballContactFirst = "NO";
+        }
+        if (varRequestDTO.getIncident().getOpenFoot() != null && varRequestDTO.getIncident().getOpenFoot()){
+            openFoot = "YES";
+        }
+        this.kieSession.insert(new PenaltyCriteria("PENALTY", null, null, null, "AND"));
+        kieSession.insert(new PenaltyCriteria("FOUL_CRITERIA", null, null, "PENALTY", "OR"));
+        kieSession.insert(new PenaltyCriteria("LOCATION", varRequestDTO.getGameState().getLocation().toString(), "PENALTY_AREA", "PENALTY", null));
+        kieSession.insert(new PenaltyCriteria("CONTACT_FOUL", null, null, "FOUL_CRITERIA", "AND"));
+        kieSession.insert(new PenaltyCriteria("DANGEROUS_PLAY", null, null, "FOUL_CRITERIA", "AND"));
+        kieSession.insert(new PenaltyCriteria("CONTACT", contact, "YES", "CONTACT_FOUL", null));
+        kieSession.insert(new PenaltyCriteria("CONTACT_INTENSITY", contactIntensity, "MEDIUM_HIGH", "CONTACT_FOUL", null));
+        kieSession.insert(new PenaltyCriteria("BALL_CONTROL", ballControl, "YES", "CONTACT_FOUL", null));
+        kieSession.insert(new PenaltyCriteria("BALL_CONTACT_FIRST", ballContactFirst, "NO", "CONTACT_FOUL", null));
+
+        kieSession.insert(new PenaltyCriteria("OPEN_FOOT", openFoot, "YES", "DANGEROUS_PLAY", null));
+        kieSession.insert(new PenaltyCriteria("DANGEROUS_INTENSITY", dangerousIntensity, "HIGH", "DANGEROUS_PLAY", null));
+        // Pozivaš upit
+        QueryResults results = kieSession.getQueryResults("isSatisfied", "PENALTY");
+
+        if (results.size() > 0) {
+            System.out.println("Penal je potvrđen na osnovu svih uslova!");
+        }else{
+            System.out.println("Nije penal!");
+        }
+        Collection<FactHandle> handles = kieSession.getFactHandles(obj -> obj instanceof PenaltyCriteria);
+        for (FactHandle handle : handles) {
+            kieSession.delete(handle);
+        }
     }
 
     private Incident buildIncidentObject(IncidentDTO incidentDTO) {

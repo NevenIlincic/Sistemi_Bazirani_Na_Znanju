@@ -1,0 +1,18 @@
+package rules
+
+import models.PenaltyCriteria
+
+query isSatisfied(String $element)
+    // 1. Bazni slučaj (list)
+    (PenaltyCriteria(element == $element)
+     and not PenaltyCriteria(parent == $element)
+     and PenaltyCriteria(element == $element, status == expectedStatus))
+    or
+    // 2. AND Roditelji (Sva deca moraju biti true)
+    (PenaltyCriteria(element == $element, type == "AND")
+     and not (PenaltyCriteria(parent == $element, $child : element) and not isSatisfied($child;)))
+    or
+    // 3. OR Roditelji (Bar jedno dete mora biti true)
+    (PenaltyCriteria(element == $element, type == "OR")
+     and exists (PenaltyCriteria(parent == $element, $child : element) and isSatisfied($child;)))
+end

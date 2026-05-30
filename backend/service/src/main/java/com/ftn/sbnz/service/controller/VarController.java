@@ -26,4 +26,10 @@ public class VarController {
         return new ResponseEntity<>(recommendationsDTO, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/penalty-check", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getPenaltyCheck(@RequestBody VarRequestDTO varRequestDTO) {
+        this.varService.checkIsPenalty(varRequestDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
