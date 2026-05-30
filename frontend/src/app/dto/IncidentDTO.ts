@@ -1,0 +1,18 @@
+export interface IncidentDTO{
+    incidentId: number,
+    playerId: string,
+    contact: boolean | null,
+    playerDown: boolean | null,
+    ballContactFirst: boolean | null,
+    attackerHandContact: boolean | null,
+    handEnlargesBody: boolean | null,
+    openFoot: boolean | null,
+    contactFromBehind: boolean | null,
+    ballIntention: boolean | null,
+    dangerousPlay: boolean | null,
+    handPosition: string | null,
+    contactPoint: string | null,
+    tackleControl: string | null,
+    intensity: string | null,
+    foulType: string | null,
+}

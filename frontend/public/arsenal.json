@@ -1,0 +1,15 @@
+[
+  { "club": "Arsenal", "firstName": "David", "lastName": "Raya", "number": 22, "imageUrl": "https://cdn.sofifa.net/players/220/901/26_120.png" },
+  { "club": "Arsenal", "firstName": "William", "lastName": "Saliba", "number": 2, "imageUrl": "https://cdn.sofifa.net/players/243/715/26_120.png" },
+  { "club": "Arsenal", "firstName": "Jurrien", "lastName": "Timber", "number": 12, "imageUrl": "https://cdn.sofifa.net/players/251/805/26_120.png" },
+  { "club": "Arsenal", "firstName": "Riccardo", "lastName": "Calafiori", "number": 33, "imageUrl": "https://cdn.sofifa.net/players/257/711/26_120.png" },
+  { "club": "Arsenal", "firstName": "Declan", "lastName": "Rice", "number": 41, "imageUrl": "https://cdn.sofifa.net/players/234/378/26_120.png" },
+  { "club": "Arsenal", "firstName": "Martin", "lastName": "Ødegaard", "number": 8, "imageUrl": "https://cdn.sofifa.net/players/222/665/26_120.png" },
+  { "club": "Arsenal", "firstName": "Thomas", "lastName": "Partey", "number": 5, "imageUrl": "https://cdn.sofifa.net/players/209/658/26_120.png" },
+  { "club": "Arsenal", "firstName": "Mikel", "lastName": "Merino", "number": 23, "imageUrl": "https://cdn.sofifa.net/players/225/193/26_120.png" },
+  { "club": "Arsenal", "firstName": "Bukayo", "lastName": "Saka", "number": 7, "imageUrl": "https://cdn.sofifa.net/players/246/669/26_120.png" },
+  { "club": "Arsenal", "firstName": "Gabriel", "lastName": "Martinelli", "number": 11, "imageUrl": "https://cdn.sofifa.net/players/251/566/26_120.png" },
+  { "club": "Arsenal", "firstName": "Kai", "lastName": "Havertz", "number": 29, "imageUrl": "https://cdn.sofifa.net/players/235/790/26_120.png" },
+  { "club": "Arsenal", "firstName": "Leandro", "lastName": "Trossard", "number": 19, "imageUrl": "https://cdn.sofifa.net/players/207/421/26_120.png" },
+  { "club": "Arsenal", "firstName": "Gabriel", "lastName": "Jesus", "number": 9, "imageUrl": "https://cdn.sofifa.net/players/230/666/26_120.png" }
+]

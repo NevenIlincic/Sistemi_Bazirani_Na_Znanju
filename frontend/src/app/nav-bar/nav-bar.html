@@ -1,0 +1,13 @@
+<div class="main-navbar">
+    <div class="navbar-title">
+        <label>VAR Panel</label>
+        <button (click)="askRecommendation()"> APPLY</button>
+        <button (click)="insertPlayers()">INSERT PLAYERS</button>
+        <button (click)="resetOptions()">RESET OPTIONS</button>
+        <button (click)="checkPenalty()">PENALTY CHECK</button>
+        <button (click)="advanceTime()"> FORWARD TIME</button>
+    </div>
+    <div class="navbar-time">
+        <label>TIME: {{minutes}}:{{seconds}}</label>
+    </div>
+</div>

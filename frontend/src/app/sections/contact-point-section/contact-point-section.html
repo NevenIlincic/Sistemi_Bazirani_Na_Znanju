@@ -1,0 +1,23 @@
+<div class="section">
+    <div class="section-title">
+        <label>CONTACT POINT</label>
+    </div>
+    <div class="section-options">
+        <div class="section-option foot-option low">
+            <label>FOOT</label>
+            <input value="FOOT" type="radio" name="contact-point-group" [(ngModel)] = "contactPoint" (change)="onOptionChange()">
+        </div>
+        <div class="section-option lower-leg-option medium">
+            <label>LOWER LEG</label>
+            <input value="LOWER_LEG" type="radio" name="contact-point-group" [(ngModel)] = "contactPoint" (change)="onOptionChange()">
+        </div>
+        <div class="section-option joint-option high">
+            <label>JOINT</label>
+            <input value="JOINT" type="radio" name="contact-point-group" [(ngModel)] = "contactPoint" (change)="onOptionChange()">
+        </div>
+        <div class="section-option above-joint-option high">
+            <label>ABOVE JOINT</label>
+            <input value="ABOVE_JOINT" type="radio" name="contact-point-group" [(ngModel)] = "contactPoint" (change)="onOptionChange()">
+        </div>
+    </div>
+</div>

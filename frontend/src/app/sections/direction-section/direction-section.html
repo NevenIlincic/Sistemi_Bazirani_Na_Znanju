@@ -1,0 +1,15 @@
+<div class="section">
+    <div class="section-title">
+        <label>MOVING DIRECTION</label>
+    </div>
+    <div class="section-options">
+        <div class="section-option neutral">
+            <label>TOWARDS GOAL</label>
+            <input value="TOWARDS_GOAL" type="radio" name="direction-group" [(ngModel)]="movingDirection" (change)="onOptionChange()">
+        </div>
+        <div class="section-option neutral">
+            <label>FROM GOAL</label>
+            <input value="FROM_GOAL" type="radio" name="direction-group" [(ngModel)]="movingDirection" (change)="onOptionChange()">
+        </div>
+    </div>
+</div>

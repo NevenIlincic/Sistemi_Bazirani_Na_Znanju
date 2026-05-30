@@ -1,0 +1,79 @@
+package rules
+
+import models.Incident
+import models.GameState
+import models.Recommendation
+import enums.FoulType
+import enums.Distance
+import enums.Direction
+import enums.Location
+import enums.ProposedAction
+import enums.Category
+
+declare DogsoSituation
+    incidentId: int
+end
+
+declare DoubleJeopardy
+    incidentId: int
+end
+
+
+rule "Level 1 - Check for DOGSO situation"
+    agenda-group "DOGSO"
+    salience 10
+    when
+        $i: Incident(foulType != FoulType.NON_EXISTENT, $incId: incidentId)
+        $gs: GameState(incidentId == $incId, distanceFromGoal == Distance.CLOSE,
+        movingDirection == Direction.TOWARDS_GOAL, ballControl == true, numDefendersAhead == 0)
+    then insert(new DogsoSituation($incId));
+end
+
+rule "Level 2 - Check for DoubleJeopardy"
+    agenda-group "DOGSO"
+    salience 9
+    when
+        $ds: DogsoSituation($incId: incidentId)
+        $gs: GameState(incidentId == $incId ,location == Location.PENALTY_AREA)
+        $i: Incident(incidentId == $incId, ballIntention == true)
+    then
+        insert(new DoubleJeopardy($incId));
+end
+
+rule "Check is yellow card for DoubleJeopardy"
+    agenda-group "DOGSO"
+    salience 5
+    when
+        $dj: DoubleJeopardy($incId: incidentId)
+        $i: Incident(incidentId == $incId)
+        $ds: DogsoSituation(incidentId == $incId)
+        $gs: GameState(incidentId == $incId)
+    then
+        insert(new Recommendation($incId, $i.getPlayerId(), "DoubleJeopardy activated!", ProposedAction.YELLOW_CARD, Category.DISCIPLINARY_ACTION));
+        delete($dj);
+        delete($ds);
+end
+
+rule "Check is red card - DOGSO inside penalty area without ball intention"
+    agenda-group "DOGSO"
+    salience 5
+    when
+        $ds: DogsoSituation($incId: incidentId)
+        $gs: GameState(incidentId == $incId ,location == Location.PENALTY_AREA)
+        $i: Incident(incidentId == $incId, ballIntention == false)
+    then
+        insert(new Recommendation($incId, $i.getPlayerId(), "DOGSO Inside Penalty Area, No ball intention - RED CARD", ProposedAction.RED_CARD, Category.DISCIPLINARY_ACTION));
+        delete($ds);
+end
+
+rule "Check is red card - DOGSO outside penalty area"
+    agenda-group "DOGSO"
+    salience 5
+    when
+        $ds: DogsoSituation($incId: incidentId)
+        $gs: GameState(incidentId == $incId ,location == Location.OUTSIDE_PENALTY_AREA)
+        $i: Incident(incidentId == $incId)
+    then
+        insert(new Recommendation($incId, $i.getPlayerId(), "DOGSO Outside Penalty Area - RED CARD", ProposedAction.RED_CARD, Category.DISCIPLINARY_ACTION));
+        delete($ds);
+end

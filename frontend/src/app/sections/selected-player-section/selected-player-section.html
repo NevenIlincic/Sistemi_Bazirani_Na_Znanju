@@ -1,0 +1,26 @@
+<div class="section">
+    <div class="section-title">
+        <label>SELECTED PLAYER</label>
+    </div>
+    @if (selectedPlayer != null){
+    <div class="section-options">
+        <img [src]="selectedPlayer.imgUrl" referrerpolicy="no-referrer">
+        <div class="infos-div">
+            <div class="info-div">
+                <label>{{selectedPlayer.firstName}} {{selectedPlayer.lastName}}</label>
+            </div>
+
+            @if (selectedPlayer.club == "FC Barcelona"){
+            <img src="barcelona-logo.png">
+            }@else{
+            <img src="arsenal-logo.png">
+            }
+
+        </div>
+    </div>
+    }@else {
+        <div class="section-options no-selection">
+            <label>NO PLAYER SELECTED</label>
+        </div>
+    }
+</div>

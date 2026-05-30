@@ -1,0 +1,43 @@
+<div class="section">
+    <div class="section-title">
+        <label>INCIDENT PARAMETERS</label>
+    </div>
+    <div class="section-options">
+        <div class="section-option neutral">
+            <label>Contact made</label>
+            <input type="checkbox" [(ngModel)]="isContactMade" (change)="onCheckBoxChange()">
+        </div>
+        <div class="section-option neutral">
+            <label>Player tackled down</label>
+            <input type="checkbox" [(ngModel)]="isPlayerTackledDown" (change)="onCheckBoxChange()">
+        </div>
+        <div class="section-option neutral">
+            <label>Ball touched first</label>
+            <input type="checkbox" [(ngModel)]="ballTouchedFirst" (change)="onCheckBoxChange()">
+        </div>
+        <div class="section-option neutral">
+            <label>Opponent touched ball with hand</label>
+            <input type="checkbox" [(ngModel)]="opponentHandTouch" (change)="onCheckBoxChange()">
+        </div>
+        <div class="section-option neutral">
+            <label>Hand enlarges body</label>
+            <input type="checkbox" [(ngModel)]="handEnlargesBody" (change)="onCheckBoxChange()">
+        </div>
+         <div class="section-option neutral">
+            <label>Foul with open foot</label>
+            <input type="checkbox" [(ngModel)]="openFoot" (change)="onCheckBoxChange()">
+        </div>
+         <div class="section-option neutral">
+            <label>Foul made from behind</label>
+            <input type="checkbox" [(ngModel)]="contactFromBehind" (change)="onCheckBoxChange()">
+        </div>
+        <div class="section-option neutral">
+            <label>Player had itention for ball</label>
+            <input type="checkbox" [(ngModel)]="ballIntention" (change)="onCheckBoxChange()">
+        </div>
+        <div class="section-option neutral">
+            <label>Dangerous play</label>
+            <input type="checkbox" [(ngModel)]="dangerousPlay" (change)="onCheckBoxChange()">
+        </div>
+    </div>
+</div>

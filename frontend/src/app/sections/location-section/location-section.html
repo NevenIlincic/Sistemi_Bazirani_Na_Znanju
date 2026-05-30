@@ -1,0 +1,15 @@
+<div class="section">
+    <div class="section-title">
+        <label>LOCATION</label>
+    </div>
+    <div class="section-options">
+        <div class="section-option neutral">
+            <label>OUTSIDE PENALTY AREA</label>
+            <input value="OUTSIDE_PENALTY_AREA" type="radio" name="location-group" [(ngModel)]="location" (change)="onOptionChange()">
+        </div>
+        <div class="section-option neutral">
+            <label>PENALTY AREA</label>
+            <input value="PENALTY_AREA" type="radio" name="location-group" [(ngModel)]="location" (change)="onOptionChange()">
+        </div>
+    </div>
+</div>

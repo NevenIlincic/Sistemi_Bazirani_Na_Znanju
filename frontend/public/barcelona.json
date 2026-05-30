@@ -1,0 +1,19 @@
+[
+  { "club": "FC Barcelona", "firstName": "Marc-André", "lastName": "ter Stegen", "number": 1, "imageUrl": "https://cdn.sofifa.net/players/192/448/26_120.png" },
+  { "club": "FC Barcelona", "firstName": "Joan", "lastName": "Garcia", "number": 13, "imageUrl": "https://cdn.sofifa.net/players/259/532/26_120.png" },
+  { "club": "FC Barcelona", "firstName": "Pau", "lastName": "Cubarsí", "number": 2, "imageUrl": "https://cdn.sofifa.net/players/278/046/26_120.png" },
+  { "club": "FC Barcelona", "firstName": "Alejandro", "lastName": "Balde", "number": 3, "imageUrl": "https://cdn.sofifa.net/players/263/578/26_120.png" },
+  { "club": "FC Barcelona", "firstName": "Ronald", "lastName": "Araújo", "number": 4, "imageUrl": "https://cdn.sofifa.net/players/253/163/26_120.png" },
+  { "club": "FC Barcelona", "firstName": "Iñigo", "lastName": "Martínez", "number": 5, "imageUrl": "https://cdn.sofifa.net/players/212/218/26_120.png" },
+  { "club": "FC Barcelona", "firstName": "Jules", "lastName": "Koundé", "number": 23, "imageUrl": "https://cdn.sofifa.net/players/241/486/26_120.png" },
+  { "club": "FC Barcelona", "firstName": "Gavi", "lastName": "Paez", "number": 6, "imageUrl": "https://cdn.sofifa.net/players/264/240/26_120.png" },
+  { "club": "FC Barcelona", "firstName": "Pedri", "lastName": "Gonzalez", "number": 8, "imageUrl": "https://cdn.sofifa.net/players/251/854/26_120.png" },
+  { "club": "FC Barcelona", "firstName": "Frenkie", "lastName": "de Jong", "number": 21, "imageUrl": "https://cdn.sofifa.net/players/228/702/26_120.png" },
+  { "club": "FC Barcelona", "firstName": "Dani", "lastName": "Olmo", "number": 20, "imageUrl": "https://cdn.sofifa.net/players/244/260/26_120.png" },
+  { "club": "FC Barcelona", "firstName": "Fermín", "lastName": "López", "number": 16, "imageUrl": "https://cdn.sofifa.net/players/277/179/26_120.png" },
+  { "club": "FC Barcelona", "firstName": "Marc", "lastName": "Casadó", "number": 17, "imageUrl": "https://cdn.sofifa.net/players/272/600/26_120.png" },
+  { "club": "FC Barcelona", "firstName": "Ferran", "lastName": "Torres", "number": 7, "imageUrl": "https://cdn.sofifa.net/players/241/461/26_120.png" },
+  { "club": "FC Barcelona", "firstName": "Robert", "lastName": "Lewandowski", "number": 9, "imageUrl": "https://cdn.sofifa.net/players/188/545/26_120.png" },
+  { "club": "FC Barcelona", "firstName": "Raphinha", "lastName": "Dias", "number": 11, "imageUrl": "https://cdn.sofifa.net/players/233/419/26_120.png" },
+  { "club": "FC Barcelona", "firstName": "Lamine", "lastName": "Yamal", "number": 19, "imageUrl": "https://cdn.sofifa.net/players/277/643/26_240.png" }
+]

@@ -1,0 +1,46 @@
+<div class="main-panel">
+    <div class="section">
+        <app-selected-player-section></app-selected-player-section>
+        <div class="section-title">
+            <label>FOUL INFORMATION</label>
+        </div>
+        <div class="foul-information">
+            <div class="incident-type">
+                <div class="small-big-foul">
+                    <label>SMALL FOUL</label>
+                    <input value="SMALL_FOUL" type="radio" name="small-big-foul-group" [checked]="isSmallFoul" (change)="onOptionChange()">
+                </div>
+                <div class="small-big-foul">
+                    <label> BIG FOUL</label>
+                    <input value="BIG_FOUL" , type="radio" name="small-big-foul-group" [checked]="!isSmallFoul" (change)="onOptionChange()">
+                </div>
+            </div>
+            @if (!isSmallFoul){
+            <div class="section-options">
+                <app-intensity-section></app-intensity-section>
+                <app-contact-point-section> </app-contact-point-section>
+                <app-foul-type-section></app-foul-type-section>
+                <app-tackle-control-section></app-tackle-control-section>
+                <app-hand-position-section></app-hand-position-section>
+                <app-location-section></app-location-section>
+                <app-distance-section></app-distance-section>
+                <app-direction-section></app-direction-section>
+                <app-ball-control-section></app-ball-control-section>
+                <app-goal-scored-section></app-goal-scored-section>
+                <app-num-defenders-ahead-section></app-num-defenders-ahead-section>
+            </div>
+            <app-incident-parameters-section></app-incident-parameters-section>
+            }@else {
+                <div class="section-options">
+                    <app-contact-made-section></app-contact-made-section>
+                </div>
+            }
+        </div>
+    </div>
+
+
+    <div class="players-and-recommendations-div">
+        <app-players-section></app-players-section>
+        <app-recommendations-section></app-recommendations-section>
+    </div>
+</div>

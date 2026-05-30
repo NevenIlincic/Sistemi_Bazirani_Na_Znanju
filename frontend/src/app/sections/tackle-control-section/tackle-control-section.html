@@ -1,0 +1,15 @@
+<div class="section">
+    <div class="section-title">
+        <label>TACKLE CONTROL</label>
+    </div>
+    <div class="section-options">
+        <div class="section-option low">
+            <label>CONTROLLED</label>
+            <input value="CONTROLLED" type="radio" name="tackle-control-group" [(ngModel)]="tackleControl" (change)="onOptionChange()">
+        </div>
+        <div class="section-option high">
+            <label>NOT CONTROLLED</label>
+            <input value="NOT_CONTROLLED" type="radio" name="tackle-control-group" [(ngModel)]="tackleControl" (change)="onOptionChange()">
+        </div>
+    </div>
+</div>

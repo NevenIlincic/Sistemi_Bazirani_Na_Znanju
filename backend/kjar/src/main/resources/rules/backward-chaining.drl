@@ -1,0 +1,18 @@
+package rules
+
+import models.PenaltyCriteria
+
+query isSatisfied(String $element)
+    //LIST
+    (PenaltyCriteria(element == $element)
+     and not PenaltyCriteria(parent == $element)
+     and PenaltyCriteria(element == $element, status == expectedStatus))
+    or
+    //AND MEDJUCVOR
+    (PenaltyCriteria(element == $element, type == "AND")
+     and not (PenaltyCriteria(parent == $element, $child : element) and not isSatisfied($child;)))
+    or
+    //OR MEDJUCVOR
+    (PenaltyCriteria(element == $element, type == "OR")
+     and exists (PenaltyCriteria(parent == $element, $child : element) and isSatisfied($child;)))
+end
