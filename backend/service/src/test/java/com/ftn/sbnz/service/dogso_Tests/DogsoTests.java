@@ -87,7 +87,7 @@ public class DogsoTests {
 
         assertEquals(2, firedRulesCount);
         assertEquals(ProposedAction.RED_CARD, rec.getAction());
-        assertTrue(rec.getMessage().contains("DoubleJeopardy not activated - RED CARD"));
+        assertTrue(rec.getMessage().contains("DOGSO Inside Penalty Area, No ball intention - RED CARD"));
     }
 
     @Test
@@ -116,6 +116,6 @@ public class DogsoTests {
 
         assertEquals(2, firedRulesCount);
         assertEquals(ProposedAction.RED_CARD, rec.getAction());
-        assertTrue(rec.getMessage().contains("DoubleJeopardy not activated - RED CARD"));
+        assertTrue(rec.getMessage().contains("DOGSO Outside Penalty Area - RED CARD"));
     }
 }
